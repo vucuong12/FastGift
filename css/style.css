@@ -1,0 +1,22 @@
+#navigation_bar {
+	height: 50px;
+    border-bottom: solid 1px;
+    font-size: 25px;
+}
+
+* {
+	font-family: 'Slabo 27px', serif;
+}
+
+.nav-option {
+	margin-top: 6px;
+
+}
+
+.nav-option a:hover {
+   text-decoration:none;
+}
+
+.nav-option a {
+   color: black
+}
