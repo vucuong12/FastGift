@@ -5,19 +5,25 @@
   <title>Fast Gift</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/customboostrap.css">
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   
   <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
   <script type="text/javascript" src="js/config.js"></script>
-
   
-  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="css/style.css">
 
-  <script type="text/javascript" src="js/mygifts.js"></script>
+
+  <script type="text/javascript" src="js/mygifts.js"></script> 
+  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+
 </head>
 
 <body>
@@ -25,12 +31,12 @@
   <div class="container-fluid">
     <div id="navigation_bar" class="row">
       <div class="col-sm-4">
-        <img src="images/logo.png" alt="Mountain View" style="width:85px;height:49px;">
+        <img src="images/logo.png" style="width:85px;height:49px;">
       </div>
       <div class="col-sm-4">
         <center class="nav-option">
           <a style="margin-right : 10px" href="index.html">Home</a>
-          <a style="margin-left : 10px"href="mygifts.html">My Gifts</a>  
+          <a style="margin-left : 10px" href="mygifts.html">My Gifts</a>  
         </center>
         
       </div>
@@ -43,9 +49,106 @@
     </div>
 
     <div class="row">
-    
+      <div class="col-sm-3 left-section">
+        <div class="row">
+          <div class="col-sm-4"> <img id="profile-img" src="images/trump.jpg" style="width:80px;height:80px;"> </div>
+          <div class="col-sm-8" style="padding-top: 13px;"> <h2 > Donald Trump </h2> </div>
+        </div>
+        <div class="row" style="margin-top: 50px" align="center">
+          <h1 > Topic </h1>
+        </div>
+        <div class="row ">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-10 " align="left" style="font-size: 25px">
+            <div class="demo">
+              <label style="font-weight: 300;">
+                  <input type="radio" class="option-input radio" name="topic-option" checked="" /> All
+              </label> <br>
+
+              <label style="font-weight: 300;">
+                  <input type="radio" class="option-input radio" name="topic-option" /> Birthday
+              </label> <br>
+
+              <label style="font-weight: 300;">
+                  <input type="radio" class="option-input radio" name="topic-option" /> Christmas
+              </label> <br>
+            
+              
+                
+              
+                
+              
+                
+            </div>
+          </div>
+          
+
+          <div class="col-sm-0"></div>
+        </div>
+      </div>
+      <div class="col-sm-9 main-section" class="">
+        <div class="row"> <h2 style="margin-left: 13px"> My Gifts</h2></div>
+        <div class="row">
+          <label style="font-weight: 300;">
+              <input type="radio" class="option-input radio" name="status-option" checked="" /> All
+          </label> 
+
+          <label style="font-weight: 300;">
+              <input type="radio" class="option-input radio" name="status-option" /> Completed
+          </label> 
+          <label style="font-weight: 300;">
+              <input type="radio" class="option-input radio" name="status-option" /> Incompleted
+          </label> 
+        </div>
+
+
+        <div class="gifts-section">
+          <div class="row one-gift">
+            <div class="col-sm-12 gift-name">Birthday gift for Anna</div>
+            <div class="col-sm-12 gift-details">
+              <div class="col-sm-2 gift-image" ><img src="images/trump.jpg" style="width:80px;height:80px;"></div>
+              <div class="col-sm-4 gift-status">Completed</div>
+              <div class="col-sm-6 gift-actions">
+                <div class="row">
+                  <div class="col-sm-4"></div>
+                  <div class="col-sm-2 gift-edit gift-action"> 
+                    <i class="action-icon material-icons" >edit</i> <br>
+                    <span> Edit </span>
+                  
+                  </div>
+                  <div class="col-sm-2 gift-send gift-action"> 
+                    <i class="action-icon material-icons" >link</i> <br>
+                    <span> Send </span>
+                   </div>
+                  <div class="col-sm-2 gift-remove gift-action"> 
+                    <i class="action-icon material-icons" >delete</i> <br>
+                    <span>Remove</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <div class="one-gift">
+            <div class="gift-name">Birthday gift for Anna</div>
+            <div class="gift-details">
+              <img id="profile-img" src="images/trump.jpg" style="width:80px;height:80px;">
+            </div>
+            
+          </div>
+          <div class="one-gift">
+            <div class="gift-name">Birthday gift for Anna</div>
+            <div class="gift-details">
+              <img id="profile-img" src="images/trump.jpg" style="width:80px;height:80px;">
+            </div>
+            
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
 </body>
 </html>
+
+
