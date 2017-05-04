@@ -1,7 +1,25 @@
+
+body {
+  min-width: 1200px;
+}
+
+
+
+.topics label{
+  cursor: pointer;
+}
+
+.main-section label{
+  cursor: pointer;
+}
+
+
+
 #navigation_bar {
 	height: 50px;
     border-bottom: solid 1px;
     font-size: 25px;
+    border-bottom-color: #ddd;
 }
 
 * {
@@ -13,8 +31,10 @@
 
 }
 
+
 .nav-option a:hover {
    text-decoration:none;
+   color: #5fcff1;
 }
 
 .nav-option a {
@@ -22,13 +42,19 @@
 }
 
 .left-section {
-	border-right: solid 1px;
+	/*border-right: solid 1px;*/
 	height: 100vh;
+}
+
+.container {
+  /*width: 1200px !important;*/
 }
 
 #profile-img {
 	margin-left: 10px;
 	margin-top: 10px;
+  width: 80%;
+  height: 80%;
 }
 
 #user-name {
@@ -68,7 +94,7 @@ input[type="checkbox"] {
 
 .option-input:hover { background: #9faab7; }
 
-.option-input:checked { background: #40e0d0; }
+.option-input:checked { background: #5fcff1; }
 
 .option-input:checked::before {
   width: 20px;
@@ -127,7 +153,4 @@ input[type="checkbox"] {
 
 .gift-action {
 	padding-top: 17px;
-    padding-left: 49px;
-   
-
 }

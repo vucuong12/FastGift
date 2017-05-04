@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Fast Gift</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta name="viewport" content="width=1280, initial-scale=1"> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/customboostrap.css">
   
@@ -27,40 +27,40 @@
 </head>
 
 <body>
-
-  <div class="container-fluid">
-    <div id="navigation_bar" class="row">
-      <div class="col-sm-4">
+  <div id="navigation_bar" class="row">
+      <a href="index.html" class="col-xs-4">
         <img src="images/logo.png" style="width:85px;height:49px;">
-      </div>
-      <div class="col-sm-4">
+      </a>
+      <div class="col-xs-4">
         <center class="nav-option">
-          <a style="margin-right : 10px" href="index.html">Home</a>
-          <a style="margin-left : 10px" href="mygifts.html">My Gifts</a>  
+          <a id="to-homepage" style="margin-right : 10px" href="index.html">Home</a>
+          <a id="to-mygifts" style="margin-left : 10px" href="mygifts.html">My Gifts</a>  
         </center>
         
       </div>
-      <div class="col-sm-4 text-right">
+      <div class="col-xs-4 text-right">
         <div class="nav-option" style="margin-right: 10px">
           <a href="">Logout</a>  
         </div>
         
       </div>
     </div>
+  <div class="container">
+    
 
     <div class="row">
-      <div class="col-sm-3 left-section">
+      <div class="col-xs-3 left-section">
         <div class="row">
-          <div class="col-sm-4"> <img id="profile-img" src="images/trump.jpg" style="width:80px;height:80px;"> </div>
-          <div class="col-sm-8" style="padding-top: 13px;"> <h2 > Donald Trump </h2> </div>
+          <div class="col-xs-4"> <img id="profile-img" src="images/trump.jpg" > </div>
+          <div class="col-xs-8" style="padding-top: 13px;"> <h2 > Donald Trump </h2> </div>
         </div>
         <div class="row" style="margin-top: 50px" align="center">
           <h1 > Topic </h1>
         </div>
         <div class="row ">
-          <div class="col-sm-2"></div>
-          <div class="col-sm-10 " align="left" style="font-size: 25px">
-            <div class="demo">
+          <div class="col-xs-2"></div>
+          <div class="col-xs-10 " align="left" style="font-size: 25px">
+            <div class="topics">
               <label style="font-weight: 300;">
                   <input type="radio" class="option-input radio" name="topic-option" checked="" /> All
               </label> <br>
@@ -83,10 +83,10 @@
           </div>
           
 
-          <div class="col-sm-0"></div>
+          <div class="col-xs-0"></div>
         </div>
       </div>
-      <div class="col-sm-9 main-section" class="">
+      <div class="col-xs-9 main-section" class="">
         <div class="row"> <h2 style="margin-left: 13px"> My Gifts</h2></div>
         <div class="row">
           <label style="font-weight: 300;">
@@ -104,23 +104,23 @@
 
         <div class="gifts-section">
           <div class="row one-gift">
-            <div class="col-sm-12 gift-name">Birthday gift for Anna</div>
-            <div class="col-sm-12 gift-details">
-              <div class="col-sm-2 gift-image" ><img src="images/trump.jpg" style="width:80px;height:80px;"></div>
-              <div class="col-sm-4 gift-status">Completed</div>
-              <div class="col-sm-6 gift-actions">
+            <div class="col-xs-12 gift-name">Birthday gift for Anna</div>
+            <div class="col-xs-12 gift-details">
+              <div class="col-xs-2 gift-image" ><img src="images/trump.jpg" style="width:80px;height:80px;"></div>
+              <div class="col-xs-4 gift-status">Completed</div>
+              <div class="col-xs-6 gift-actions">
                 <div class="row">
-                  <div class="col-sm-4"></div>
-                  <div class="col-sm-2 gift-edit gift-action"> 
+                  <div class="col-xs-6"></div>
+                  <div class="col-xs-2 gift-edit gift-action"> 
                     <i class="action-icon material-icons" >edit</i> <br>
                     <span> Edit </span>
                   
                   </div>
-                  <div class="col-sm-2 gift-send gift-action"> 
+                  <div class="col-xs-2 gift-send gift-action"> 
                     <i class="action-icon material-icons" >link</i> <br>
                     <span> Send </span>
                    </div>
-                  <div class="col-sm-2 gift-remove gift-action"> 
+                  <div class="col-xs-2 gift-remove gift-action"> 
                     <i class="action-icon material-icons" >delete</i> <br>
                     <span>Remove</span>
                   </div>

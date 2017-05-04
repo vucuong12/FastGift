@@ -1,1 +1,2 @@
 # FastGift
+An awesome project !
