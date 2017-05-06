@@ -17,3 +17,20 @@
 {
 	text-align: center;
 }
+#birthdayPreview
+{
+}
+#anniversaryPreview
+{
+	display: none;
+	margin-top: 64px;
+	text-align: center;
+	font-size: 32px;
+}
+#valentinePreview
+{
+	display: none;
+	margin-top: 64px;
+	text-align: center;
+	font-size: 32px;
+}
