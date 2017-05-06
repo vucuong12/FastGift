@@ -206,3 +206,30 @@ input[type="checkbox"] {
 }
 
 .clear { clear: both; }
+
+#left_toolbar {
+  border-style: solid;
+  border-right: thick double #ff0000;
+  height: 100vh;
+}
+
+.slide {
+  border-style: solid;
+  border-width: 1px;
+  padding: 1px;
+  margin-bottom: 20px;
+  margin-top: 10px; 
+  height: 180px;
+  width: 100%;
+}
+
+#center_board {
+ 
+}
+
+.panel {
+  
+  border-style: solid;
+  border-width: 1px;
+ 
+}
