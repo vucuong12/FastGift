@@ -1,4 +1,4 @@
-.left-section
+.container
 {
 	margin-top: 64px;
 }
@@ -10,8 +10,7 @@
 }
 .btn
 {
-	margin-bottom: 16px;
-	margin-top: 16px;
+	margin: 16px;
 	width: 128px;	
 }
 .btnwrapper
