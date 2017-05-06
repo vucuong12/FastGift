@@ -231,9 +231,6 @@ input[type="checkbox"] {
   border-width: 1px;
 }
 
-#panel1_header_happybirthday {
-}
-
 #wrapper_input1 {
   background-color: #fbffc4;
   width: 300px;
@@ -264,6 +261,23 @@ input[type="checkbox"] {
   width: 453px;
   text-align: center;
   line-height: 11px;
+}
+
+#wrapper_input8 {
+  background-color: #fbffc4;
+  width: 480px;
+  height: 290px;
+  text-align: center;
+  line-height: 11px;
+  position: absolute;
+  top: 280px;
+  left: 360px;
+  display: table;
+}
+
+#wrapper_input8 h1 {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 #panel1_header div, #panel2_header div {
@@ -309,10 +323,6 @@ input[type="checkbox"] {
   border-radius: 0;
 }
 
-#panel1 {
-  display: none;
-}
-
 
 #panel2_body {
   position: relative;
@@ -351,4 +361,31 @@ input[type="checkbox"] {
   left: 695px;
   top: 109px;
   background-color: #fbffc4;
+}
+
+#panel3_footer {
+  text-align: center;
+}
+#panel3_next {
+  position: absolute;
+  right: 10px;
+  border-radius: 0;
+}
+
+#panel3_prev {
+  position: absolute;
+  left: 10px;
+  border-radius: 0;
+}
+
+#panel1 {
+  /*display: none;*/
+}
+
+#panel2 {
+  /*display: none;*/
+}
+
+#panel3 {
+  /*display: none;*/
 }
