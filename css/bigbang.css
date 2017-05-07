@@ -1,0 +1,176 @@
+#left_toolbar {
+  border-style: solid;
+  border-right: 0
+  border-right: thick double #ff0000;
+}
+
+#center_board {
+  /*border-style: solid;*/
+}
+
+.slide {
+  border-style: solid;
+  border-width: 1px;
+  padding: 1px;
+  margin-bottom: 20px;
+  margin-top: 10px; 
+  width: 100%;
+}
+
+.current-slide{
+  border: solid 5px red;
+}
+
+
+
+
+
+
+
+i#music {
+    font-size: 63px;
+}
+
+div.header_mid div {
+    display: inline-block;
+}
+
+#wrapper_input1 {
+  background-color: #f8ff9c;
+  text-align: center;
+  width: 35%;
+}
+
+#panel1_body img {
+  height: 85%; 
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+#wrapper_input2 {
+  background-color: #f8ff9c;
+  text-align: center;
+  width: 88%;
+  height: 30%;
+  display:inline-block;
+}
+
+#panel1_next {
+  border-radius: 0;
+}
+
+
+
+/*PANEL 2*/
+
+#panel2_body img {
+  height: 85%; 
+  width: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#wrapper_input8 {
+  background-color: #f8ff9c;
+  text-align: center;
+  width: 88%;
+  height: 30%;
+  display:inline-block;
+}
+
+#panel2_body div {
+  background-color: #f8ff9c
+}
+
+#wrapper_input5 {
+  width: 150px;
+  height: 200px;
+}
+
+
+#wrapper_input6 {
+  width: 150px;
+  height: 200px; 
+}
+
+
+#wrapper_input7 {
+  width: 150px;
+  height: 200px;
+}
+
+
+
+
+/*PANEL 3*/
+#panel3_body img {
+  height: 85%; 
+  width: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#panel3_body {
+  padding-top: 50px;
+}
+#panel3_body div {
+  background-color: #f8ff9c
+}
+
+#wrapper_input9 {
+  width: 400px;
+  height: 200px;
+}
+
+
+
+/*FOR ALL PANEL*/
+.panel_header {
+  /*border: solid 1px;*/
+  padding-top: 20px;
+  height: 10%;
+}
+
+.panel_body {
+  padding-top: 100px;
+  height: 80%;
+  /*border: solid 1px blue;*/
+}
+
+.panel_footer {
+  height: 10%;
+  /*border: solid 1px yellow;*/
+}
+
+.gift-panel {
+  height: 90vh;
+}
+
+
+#panel1 {
+  /*display: none;*/
+  position: relative;
+}
+
+#panel2 {
+  /*display: none;*/
+  position: relative;
+}
+
+#panel3 {
+  /*display: none;*/
+  position: relative;
+}
+
+.panel_footer button {
+  border-radius: 0;
+}
+
+.slide:hover {
+  cursor: pointer;
+}

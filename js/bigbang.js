@@ -27,7 +27,7 @@ $(document).ready(function()
 		var input7 = $("#wrapper_input7");
 		input7.height(input7.height() * ratio);
 		input7.width(input7.width() * ratio);
-		input7.offset({top: topImg + 0.2 * newImgHeight, left: leftImg + 0.9 * newImgWidth})
+		input7.offset({top: topImg + 0.2 * newImgHeight, left: leftImg + 0.8 * newImgWidth})
 
 		curImgHeight = $("#balloon-img").height();
 		curImgWidth = $("#balloon-img").width();
@@ -75,4 +75,54 @@ $(document).ready(function()
 		  adjustInput9();
 		});    
 	}
+
+	$("#slide1").click(function(){
+		showSlide(1);
+	})
+
+	$("#slide2").click(function(){
+		showSlide(2);
+	})
+
+	$("#slide3").click(function(){
+		showSlide(3);
+	})
+
+	
+
+	function showSlide(slideNumber, totalSlide = 3){
+		for (var i = 1; i < totalSlide + 1; i++){
+			if (i == slideNumber){
+				$("#panel" + i).show();	
+				$("#slide" + i).addClass("current-slide");
+			} else {
+				$("#panel" + i).hide();	
+				$("#slide" + i).removeClass("current-slide");
+			}
+			
+		}
+	}
+	showSlide(1);
+	$("#panel1_next").click(function()
+	{
+		showSlide(2);
+	});
+
+	$("#panel2_prev").click(function()
+	{
+		showSlide(1);
+	});
+	$("#panel2_next").click(function()
+	{
+		showSlide(3);
+	});
+
+	$("#panel3_prev").click(function()
+	{
+		showSlide(2);
+	});
+	$("#panel3_save").click(function()
+	{
+		
+	});
 });

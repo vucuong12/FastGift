@@ -18,4 +18,8 @@ $(document).ready(function()
 		$("#anniversaryPreview").hide();
 		$("#valentinePreview").show();
 	});
+
+	$("#bigbang-img").click(function(){
+		window.location.href = "Editing/Bigbang.html";
+	})
 });
