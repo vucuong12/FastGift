@@ -40,17 +40,17 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
-  <script type="text/javascript" src="../js/makinggift.js"></script>
+  <script type="text/javascript" src="../js/bigbang.js"></script>
 </head>
 <body>
   <div id="navigation_bar" class="row">
-      <a href="index.html" class="col-xs-4">
+      <a href="../index.html" class="col-xs-4">
         <img src="../images/logo.png" style="width:85px;height:49px;">
       </a>
       <div class="col-xs-4">
         <center class="nav-option">
-          <a style="margin-right : 10px" href="index.html">Home</a>
-          <a style="margin-left : 10px" href="mygifts.html">My Gifts</a>  
+          <a style="margin-right : 10px" href="../index.html">Home</a>
+          <a style="margin-left : 10px" href="../mygifts.html">My Gifts</a>  
         </center>
         
       </div>
@@ -75,72 +75,99 @@
     </div>
 
     <div id="center_board" class="col-xs-9">
-      <div id="panel1" class="panel">
-        <div id="panel1_header">
-          <i id="music" class="material-icons">music_note</i>
-          <div id="panel1_header_happybirthday">
+
+      <!-- PANEL 1 -->
+      <div id="panel1" class="gift-panel">
+        <!-- HEADER PANEL 1 -->
+        <div id="panel1_header" class="panel_header row">
+          <i id="music" class="material-icons col-xs-3">music_note</i>
+          
+          <div class="col-xs-9 header_mid">
             <div><h1>HAPPY BIRTHDAY</h1></div>
-            <div id="wrapper_input1">
-              <h2 style="margin-top: 10px;">+Text</h2>
-            </div>
+            <div id="wrapper_input1"><h2 style="margin-top: 10px;">+Text</h2></div>
             <div><h1>!!!</h1></div>
           </div>
-          <div class="clear"></div>
         </div>
-        <div id="panel1_body">
-          <img src="../images/gift1.png" style="height: 500px; width: 500px; display: block;
-  margin-left: auto;
-  margin-right: auto;">
+
+        <!-- BODY PANEL 1 -->
+        <div id="panel1_body" class="panel_body">
+          <img src="../images/gift1.png">
         </div>
-        <div id="panel1_footer">
-        <center>
-          <div id="wrapper_input2" class="same_line">
-            <h2 style="margin-top: 10px;">+Text</h2>
+
+        <!-- FOOTER PANEL1 -->
+        <div id="panel1_footer" class="panel_footer row">
+          <div class="col-xs-6 col-xs-offset-3" style="text-align:center">
+            <div id="wrapper_input2">
+              <h2 style="margin-top: 10px;">+Text</h2>
+            </div>
           </div>
-          <button id="panel1_next" type="button" class="btn btn-info">Next</button>
-        </center>
-          
+          <div class="col-xs-3" style="text-align: right">
+            <button id="panel1_next" type="button" class="btn btn-info">Next</button>  
+          </div>
         </div>
       </div>
-      <div id="panel2" class="panel">
-        
-        <div id="panel2_header">
+
+      <!-- PANEL 2 -->
+      <div id="panel2" class="gift-panel">
+        <!-- HEADER PANEL 2 -->
+        <div id="panel2_header" class="panel_header">
           <i id="music" class="material-icons">music_note</i>
           <div class="clear"></div>
         </div>
-        <div id="panel2_body">
-          <img id="balloon-img" src="../images/real_balloon2.png" style="height: 600px; width: 500px;">
-          <div id="wrapper_input5"><h2 style="margin-top: 52px;margin-left: 21px;">+Text</h2></div>
-          <div id="wrapper_input6"><h2 style="margin-top: 64px;margin-left: 33px;">+Text</h2></div>
-          <div id="wrapper_input7"><h2 style="margin-top: 52px;margin-left: 21px;">+Text</h2></div>
+
+        <!-- BODY PANEL 2 -->
+        <div id="panel2_body" class="panel_body">
+          <img id="balloon-img" src="../images/real_balloon2.png">
+          <div id="wrapper_input5"><h2 style="margin-top: 3px;margin-left: 3px;">+Text</h2></div>
+          <div id="wrapper_input6"><h2 style="margin-top: 3px;margin-left: 3px;">+Image</h2></div>
+          <div id="wrapper_input7"><h2 style="margin-top: 3px;margin-left: 3px;">+Text</h2></div>
+          
+          
         </div>
-        <div id="panel2_footer">
-          <button id="panel2_prev" type="button" class="btn btn-info">Prev</button>
-          <div id="wrapper_input4" class="same_line">
-            <h2 style="margin-top: 10px;">+Text</h2>
+
+        <!-- FOOTER PANEL 2 -->
+        <div id="panel2_footer" class="panel_footer row">
+          <div class="col-xs-3" style="text-align: left">
+            <button id="panel2_prev" type="button" class="btn btn-info">Prev</button>  
           </div>
-          <button id="panel2_next" type="button" class="btn btn-info">Next</button>
-
-
+          <div class="col-xs-6" style="text-align:center">
+            <div id="wrapper_input8">
+              <h2 style="margin-top: 10px;">+Text</h2>
+            </div>
+          </div>
+          <div class="col-xs-3" style="text-align: right">
+            <button id="panel2_next" type="button" class="btn btn-info">Next</button>  
+          </div>
         </div>
-      <div id="panel3" class="panel" style="position: relative;">
-        <div id="panel3_body" style="height: 600px;">
-          <img src="../images/card.png" style="height: 600px; width: 80%; display: block;margin-left: auto;margin-right: auto; position: absolute; left: 120px;">
-          <div id="wrapper_input8">
+      </div>
+
+
+      <!-- PANEL 3 -->
+      <div id="panel3" class="gift-panel">
+        <!-- HEADER PANEL 3 -->
+        <div id="panel3_header" class="panel_header">        
+        </div>
+
+        <!-- BODY PANEL 3 -->
+        <div id="panel3_body" class="panel_body">
+          <img id="gift_card_panel3" src="../images/card.png">
+          <div id="wrapper_input9">
             <h1>+Video</h1>
           </div>
         </div>
 
-        <div id="panel3_footer">
-          <button id="panel3_prev" type="button" class="btn btn-info">Prev</button>
-          
-          <button id="panel3_next" type="button" class="btn btn-info">Next</button>
-
-
+        <!-- FOOTER PANEL 3 -->
+        <div id="panel3_footer" class="panel_footer row">
+          <div class="col-xs-3" style="text-align: left">
+            <button id="panel3_prev" type="button" class="btn btn-info">Prev</button>  
+          </div>
+          <div class="col-xs-6" style="text-align: left">
+            
+          </div>
+          <div class="col-xs-3" style="text-align: right">
+            <button id="panel3_save" type="button" class="btn btn-info">Save</button>  
+          </div>
         </div>
-
-        <!-- <button id="panel3_prev" type="button" class="btn btn-info">Prev</button>
-        <button id="panel3_next" type="button" class="btn btn-info">Next</button> -->
       </div>
 
     </div>
