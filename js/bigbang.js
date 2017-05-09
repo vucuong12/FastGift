@@ -25,7 +25,7 @@ $(document).ready(function()
 		input5.offset({top: topImg + 0.2 * newImgHeight, left: leftImg + 0.01 * newImgWidth})
 		$("#wrapper_input5 textarea").width(input5.width());
 		$("#wrapper_input5 textarea").height(input5.height());
-		
+
 
 		//Input 6
 		var input6 = $("#wrapper_input6");
@@ -187,6 +187,12 @@ $(document).ready(function()
 			$("#"+inputKey).hide();
 			$("#"+inputKey +"-outer").show();
 			$("#"+inputKey +"-outer").html(localGift.inputs[inputKey])
+			$("#"+inputKey +"-outer").closest("div")
+			//.css({"background-color": "#fff"})
+			// .css({"text-align":"left"})
+			// .css({"min-width": "0%"})
+			// .css({"margin-left": "5px"})
+			// .css({"margin-right": "5px"})
 			
 			return;
 		}

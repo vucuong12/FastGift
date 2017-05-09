@@ -24,7 +24,7 @@ $(document).ready(function()
 		createNewGift(function(giftID){
 			window.location.href = "Editing/Bigbang.html?giftid=" + giftID;	
 		})
-			
+
 	})
 
 
@@ -35,7 +35,7 @@ $(document).ready(function()
 				input1: "",
 				input2: ""
 			},
-			status: "Incomplete"
+			status: "Incompleted"
 		}
 
 		var newGiftKey = giftsDatabase.push(newGift).key;
