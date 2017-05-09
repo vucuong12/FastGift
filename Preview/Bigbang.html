@@ -1,0 +1,166 @@
+<!-- 
+  Input: giftID (by parsing URL)
+  Precondition: there has been a corresponding object (consisting relevant variables) stored in Firebase 
+  for this gift
+  Main steps:
+    In the beginning, get that object from Firebase. 
+    While the user edits the gifts, simultaneously update that object in the browser. 
+    When user User press "Save", update that object to Firebase (start simple like this, we can realtime update to Firebase later, or for every 10 seconds, etc.)
+
+ -->
+
+ <!-- 
+  Overall structure of this html file's body
+  <left panel>
+  <main panel>
+    <page 1 shown by default>
+    <page 2 hidden by default>
+    <page 2 hidden by default>
+  -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Fast Gift</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+  
+  <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+  <script type="text/javascript" src="../js/config.js"></script>
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="../css/index.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <link        rel="stylesheet" href="../css/bigbang.css">
+  <script type="text/javascript" src="../js/bigbang.js"></script>
+</head>
+<body>
+
+  <div class="container-fluid">
+
+    <div id="center_board" class="col-xs-12">
+
+      <!-- PANEL 1 -->
+      <div id="panel1" class="gift-panel">
+        <!-- HEADER PANEL 1 -->
+        <div id="panel1_header" class="panel_header row">
+          <i id="music" class="material-icons col-xs-3">music_note</i>
+          
+          <div class="col-xs-9 header_mid">
+            <div><h1>HAPPY BIRTHDAY</h1></div>
+            <div id="wrapper_input1">
+              <h2 id="input1-outer" style="margin-top: 10px;">+Text</h2>
+              <input id="input1" style="display: none" type="text" name="fname">
+            </div>
+            <div><h1>!!!</h1></div>
+          </div>
+        </div>
+
+        <!-- BODY PANEL 1 -->
+        <div id="panel1_body" class="panel_body">
+          <img src="../images/gift1.png">
+        </div>
+
+        <!-- FOOTER PANEL1 -->
+        <div id="panel1_footer" class="panel_footer row">
+          <div class="col-xs-6 col-xs-offset-3" style="text-align:center">
+            <div id="wrapper_input2">
+             
+              <h2 id="input2-outer" style="margin-top: 10px;">+Text</h2>
+              <input id="input2" style="display: none" type="text" name="fname">
+            </div>
+          </div>
+          <div class="col-xs-3" style="text-align: right">
+            <button id="panel1_next" type="button" class="btn btn-info">Next</button>  
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL 2 -->
+      <div id="panel2" class="gift-panel">
+        <!-- HEADER PANEL 2 -->
+        <div id="panel2_header" class="panel_header">
+          <i id="music" class="material-icons">music_note</i>
+          <div class="clear"></div>
+        </div>
+
+        <!-- BODY PANEL 2 -->
+        <div id="panel2_body" class="panel_body">
+          <img id="balloon-img" src="../images/real_balloon2.png">
+          <div id="wrapper_input5">
+             
+              <h2 id="input5-outer" style="margin-top: 10px;">+Text</h2>
+              <textarea id="input5" style="display: none" ></textarea>
+            </div>
+          <div id="wrapper_input6"><h2 style="margin-top: 3px;margin-left: 3px;">+Image</h2></div>
+          <div id="wrapper_input7">
+             
+              <h2 id="input7-outer" style="margin-top: 10px;">+Text</h2>
+              <textarea id="input7" style="display: none" ></textarea>
+            </div>
+          
+          
+        </div>
+
+        <!-- FOOTER PANEL 2 -->
+        <div id="panel2_footer" class="panel_footer row">
+          <div class="col-xs-3" style="text-align: left">
+            <button id="panel2_prev" type="button" class="btn btn-info">Prev</button>  
+          </div>
+          <div class="col-xs-6" style="text-align:center">
+            <div id="wrapper_input8">
+             
+              <h2 id="input8-outer" style="margin-top: 10px;">+Text</h2>
+              <input id="input8" style="display: none" type="text" name="fname">
+            </div>
+          </div>
+          <div class="col-xs-3" style="text-align: right">
+            <button id="panel2_next" type="button" class="btn btn-info">Next</button>  
+          </div>
+        </div>
+      </div>
+
+
+      <!-- PANEL 3 -->
+      <div id="panel3" class="gift-panel">
+        <!-- HEADER PANEL 3 -->
+        <div id="panel3_header" class="panel_header">    
+          <i id="music" class="material-icons">music_note</i>    
+        </div>
+
+        <!-- BODY PANEL 3 -->
+        <div id="panel3_body" class="panel_body">
+          <img id="gift_card_panel3" src="../images/card.png">
+          <div id="wrapper_input9">
+            <h1>+Video</h1>
+          </div>
+        </div>
+
+        <!-- FOOTER PANEL 3 -->
+        <div id="panel3_footer" class="panel_footer row">
+          <div class="col-xs-3" style="text-align: left">
+            <button id="panel3_prev" type="button" class="btn btn-info">Prev</button>  
+          </div>
+          <div class="col-xs-6" style="text-align: left">
+            
+          </div>
+          <div class="col-xs-3" style="text-align: right">
+            <button id="panel3_save" type="button" class="btn btn-info">Save</button>  
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

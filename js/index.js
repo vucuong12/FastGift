@@ -24,7 +24,7 @@ $(document).ready(function()
 		createNewGift(function(giftID){
 			window.location.href = "Editing/Bigbang.html?giftid=" + giftID;	
 		})
-		
+			
 	})
 
 
