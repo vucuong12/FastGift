@@ -128,6 +128,10 @@ $(document).ready(function()
 
 		if (slideNumber == 3){
 			adjustInput9();	
+			if (mode === "Preview"){
+				$("#panel3_save").remove();	
+			}
+			
 		} else if (slideNumber == 2){
 			adjustInput567();
 		}
