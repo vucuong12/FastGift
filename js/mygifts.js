@@ -5,25 +5,24 @@ $( document ).ready(function() {
     var giftTemplate = document.getElementById('gift-template');
     snapshot.forEach(function(childSnapshot)
     {
-        console.log(childSnapshot.key);
         var gift=giftTemplate.cloneNode(true);
         gift.id=childSnapshot.key;
-        // for each gift, now we have to edit its gift-name, gift-status, preview-link, edit-link, send-link and remove button.
+        // for each gift, now we have to edit its gift-name, gift-status, send-link and remove button.
         // setname
         gift.getElementsByClassName("gift-name")[0].innerHTML = childSnapshot.key;
-        gift.getElementsByClassName("gift-status")[0].innerHTML = "??";
-        gift.getElementsByClassName("gift-preview")[0].id = childSnapshot.key;
-        gift.getElementsByClassName("gift-preview")[0].id = childSnapshot.key;
+        gift.getElementsByClassName("gift-status")[0].innerHTML = childSnapshot.val()["status"];
         giftManager.appendChild(gift);
     });
   });
 
   $(document).on( "click",".gift-preview", function(event) {
-      window.location.href = "Preview/Bigbang.html?giftid=" + this.id;
+      var gift = this.parentNode.parentNode.parentNode.parentNode; //really?
+      window.location.href = "Preview/Bigbang.html?giftid=" + gift.id;
     });
 
 	$(document).on( "click",".gift-edit", function( event ) {
-      window.location.href = "Editing/Bigbang.html?giftid=" + this.id;
+      var gift = this.parentNode.parentNode.parentNode.parentNode; //really?
+      window.location.href = "Editing/Bigbang.html?giftid=" + gift.id;
     });
 
     // $('#gift-copylink-modal').on('shown.bs.modal', function() {
@@ -33,7 +32,7 @@ $( document ).ready(function() {
 
 	$(document).on( "click",".gift-copylink", function( event ) {
       $("#gift-copylink-modal").modal("show");
-
+      
       
     });
 
