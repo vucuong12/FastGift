@@ -5,11 +5,13 @@ $( document ).ready(function() {
     var giftTemplate = document.getElementById('gift-template');
     snapshot.forEach(function(childSnapshot)
     {
+        //console.log(childSnapshot.val());
         var gift=giftTemplate.cloneNode(true);
         gift.id=childSnapshot.key;
         // for each gift, now we have to edit its gift-name, gift-status, send-link and remove button.
-        // setname
-        gift.getElementsByClassName("gift-name")[0].innerHTML = "Gift: " + childSnapshot.key;
+        var receiver = childSnapshot.val().inputs["input1"];
+        if(receiver == "") receiver = "somebody";
+        gift.getElementsByClassName("gift-name")[0].innerHTML = "Gift to " + receiver;
         gift.getElementsByClassName("gift-status")[0].innerHTML = childSnapshot.val()["status"];
         giftManager.appendChild(gift);
     });
@@ -40,12 +42,17 @@ $( document ).ready(function() {
 
   var selectedGift;
 	$(document).on( "click",".gift-copylink", function( event ) {
-      selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
-      console.log(window.location.href);
-      $("#gift-copylink-modal #copy-link-gift-name").html(selectedGift.getElementsByClassName("gift-name")[0].innerHTML);
-      $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + "Preview/Bigbang.html?giftid=" + selectedGift.id);
-      $("#gift-copylink-modal").modal("show");
-      
+        selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
+        console.log(window.location.href);
+        $("#gift-copylink-modal #copy-link-gift-name").html(selectedGift.getElementsByClassName("gift-name")[0].innerHTML);
+        $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + "Preview/Bigbang.html?giftid=" + selectedGift.id);
+        
+        var giftStatus = selectedGift.getElementsByClassName("gift-status")[0].innerHTML;
+        if (giftStatus == "Completed") {
+          $("#gift-copylink-modal").modal("show");
+        } else {
+          $("#gift-copylink-modal-incompleted").modal("show");
+        }
   });
 
   $(document).on( "click",".gift-remove", function( event ) {
