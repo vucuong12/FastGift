@@ -5,11 +5,13 @@ $( document ).ready(function() {
     var giftTemplate = document.getElementById('gift-template');
     snapshot.forEach(function(childSnapshot)
     {
+        //console.log(childSnapshot.val());
         var gift=giftTemplate.cloneNode(true);
         gift.id=childSnapshot.key;
         // for each gift, now we have to edit its gift-name, gift-status, send-link and remove button.
-        // setname
-        gift.getElementsByClassName("gift-name")[0].innerHTML = "Gift: " + childSnapshot.key;
+        var receiver = childSnapshot.val().inputs["input1"];
+        if(receiver == "") receiver = "somebody";
+        gift.getElementsByClassName("gift-name")[0].innerHTML = "Gift to " + receiver;
         gift.getElementsByClassName("gift-status")[0].innerHTML = childSnapshot.val()["status"];
         giftManager.appendChild(gift);
     });
