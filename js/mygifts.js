@@ -12,12 +12,18 @@ $( document ).ready(function() {
         // setname
         gift.getElementsByClassName("gift-name")[0].innerHTML = childSnapshot.key;
         gift.getElementsByClassName("gift-status")[0].innerHTML = "??";
-        gift.
+        gift.getElementsByClassName("gift-preview")[0].id = childSnapshot.key;
+        gift.getElementsByClassName("gift-preview")[0].id = childSnapshot.key;
         giftManager.appendChild(gift);
     });
   });
+
+  $(document).on( "click",".gift-preview", function(event) {
+      window.location.href = "Preview/Bigbang.html?giftid=" + this.id;
+    });
+
 	$(document).on( "click",".gift-edit", function( event ) {
-      alert("Edit");
+      window.location.href = "Editing/Bigbang.html?giftid=" + this.id;
     });
 
     // $('#gift-copylink-modal').on('shown.bs.modal', function() {
