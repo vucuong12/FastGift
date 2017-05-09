@@ -1,6 +1,7 @@
 var localGift = {};
 var giftID = "";
 var isCompleted = true;
+var mode = "";
 $(document).ready(function()
 {
 	init();
@@ -24,6 +25,7 @@ $(document).ready(function()
 		input5.offset({top: topImg + 0.2 * newImgHeight, left: leftImg + 0.01 * newImgWidth})
 		$("#wrapper_input5 textarea").width(input5.width());
 		$("#wrapper_input5 textarea").height(input5.height());
+
 
 		//Input 6
 		var input6 = $("#wrapper_input6");
@@ -126,6 +128,10 @@ $(document).ready(function()
 
 		if (slideNumber == 3){
 			adjustInput9();	
+			if (mode === "Preview"){
+				$("#panel3_save").remove();	
+			}
+			
 		} else if (slideNumber == 2){
 			adjustInput567();
 		}
@@ -158,6 +164,13 @@ $(document).ready(function()
 	/*INIT*/
 	
 	function init(){
+		/*0. Get mode*/
+		var localUrl = window.location.href;
+		if (localUrl.indexOf("Preview") > -1){
+			mode = "Preview"
+		} else if (localUrl.indexOf("Editing") > -1) {
+			mode = "Editing"
+		}
 		/*1. Get giftid*/
 		giftID = getParameterByName("giftid");
 		//console.log("giftID " + giftID )
@@ -173,6 +186,21 @@ $(document).ready(function()
 	}
 
 	function displayEachInput(inputKey){
+		if (mode === "Preview"){
+
+			$("#"+inputKey).hide();
+			$("#"+inputKey +"-outer").show();
+			$("#"+inputKey +"-outer").html(localGift.inputs[inputKey])
+			$("#"+inputKey +"-outer").closest("div")
+			//.css({"background-color": "#fff"})
+			// .css({"text-align":"left"})
+			// .css({"min-width": "0%"})
+			// .css({"margin-left": "5px"})
+			// .css({"margin-right": "5px"})
+			
+			return;
+		}
+
 		var value = localGift.inputs[inputKey];
 		console.log("Displaying " +inputKey + " " + value)
 		
@@ -227,6 +255,7 @@ $(document).ready(function()
 	}
 
 	function showInputFieldsAfterClick(){
+		if (mode === "Preview") return;
 		showInputField(1, "text");
 		showInputField(2, "text");
 		showInputField(5, "textarea");
