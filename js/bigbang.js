@@ -186,22 +186,36 @@ $(document).ready(function()
 	}
 
 	function displayEachInput(inputKey){
+		var value = localGift.inputs[inputKey];
 		if (mode === "Preview"){
+			if (value == "" || value == undefined) {
 
-			$("#"+inputKey).hide();
-			$("#"+inputKey +"-outer").show();
-			$("#"+inputKey +"-outer").html(localGift.inputs[inputKey])
-			$("#"+inputKey +"-outer").closest("div")
-			//.css({"background-color": "#fff"})
-			// .css({"text-align":"left"})
-			// .css({"min-width": "0%"})
-			// .css({"margin-left": "5px"})
-			// .css({"margin-right": "5px"})
+			} else {
+				$("#"+inputKey).hide();
+				$("#"+inputKey +"-outer").show();
+				$("#"+inputKey +"-outer").html(localGift.inputs[inputKey])
+				console.log($("#"+inputKey +"-outer").closest(".wrapper_input"));
+				$("#"+inputKey +"-outer").closest(".wrapper_input")
+				// .css({"background-color": "#fff"})
+				// .css({"text-align":"left"})
+				.css({"min-width": "0%"})
+				.css({"margin-left": "5px"})
+				.css({"margin-right": "5px"})
+				
+				if (inputKey === "input5" || inputKey === "input7"){
+					
+				} else {
+					console.log("aaaa");
+					$("#"+inputKey +"-outer").closest(".wrapper_input")
+					.css({"background-color": "#fff"})
+				}
+			}
+			
 			
 			return;
 		}
 
-		var value = localGift.inputs[inputKey];
+		
 		console.log("Displaying " +inputKey + " " + value)
 		
 		if (value == "" || value == undefined) return;

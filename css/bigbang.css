@@ -125,7 +125,7 @@ div.header_mid div {
 
 /*PANEL 3*/
 #panel3_body img {
-  height: 85%; 
+  height: 115%; 
   width: auto;
   display: block;
   margin-left: auto;
@@ -133,7 +133,7 @@ div.header_mid div {
 }
 
 #panel3_body {
-  padding-top: 50px;
+  padding-top: 3px;
 }
 #panel3_body div {
   background-color: #f8ff9c
@@ -199,3 +199,10 @@ textarea {
 }
 
 
+.wordwrap { 
+   white-space: pre-wrap;      /* CSS3 */   
+   white-space: -moz-pre-wrap; /* Firefox */    
+   white-space: -pre-wrap;     /* Opera <7 */   
+   white-space: -o-pre-wrap;   /* Opera 7 */    
+   word-wrap: break-word;      /* IE */
+}
