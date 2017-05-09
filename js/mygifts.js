@@ -9,10 +9,23 @@ $( document ).ready(function() {
         gift.id=childSnapshot.key;
         // for each gift, now we have to edit its gift-name, gift-status, send-link and remove button.
         // setname
-        gift.getElementsByClassName("gift-name")[0].innerHTML = childSnapshot.key;
+        gift.getElementsByClassName("gift-name")[0].innerHTML = "Gift: " + childSnapshot.key;
         gift.getElementsByClassName("gift-status")[0].innerHTML = childSnapshot.val()["status"];
         giftManager.appendChild(gift);
     });
+  });
+
+  //filter feature
+  $('[name="status-option"]').click(function()
+  {
+    var filterType = this.id.split("-")[1];
+    gifts = document.getElementsByClassName("one-gift");
+    for(var i=1; i<gifts.length; i++) //start at 1 because we excluding the template
+    {
+      var giftStatus = gifts[i].getElementsByClassName("gift-status")[0].innerHTML;
+      if(giftStatus == filterType || filterType == "All") gifts[i].style.display = "block";
+      else gifts[i].style.display = "none";
+    }
   });
 
   $(document).on( "click",".gift-preview", function(event) {
@@ -29,6 +42,7 @@ $( document ).ready(function() {
 	$(document).on( "click",".gift-copylink", function( event ) {
       selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
       console.log(window.location.href);
+      $("#gift-copylink-modal #copy-link-gift-name").html(selectedGift.getElementsByClassName("gift-name")[0].innerHTML);
       $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + "Preview/Bigbang.html?giftid=" + selectedGift.id);
       $("#gift-copylink-modal").modal("show");
       
