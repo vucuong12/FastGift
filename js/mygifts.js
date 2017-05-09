@@ -42,12 +42,17 @@ $( document ).ready(function() {
 
   var selectedGift;
 	$(document).on( "click",".gift-copylink", function( event ) {
-      selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
-      console.log(window.location.href);
-      $("#gift-copylink-modal #copy-link-gift-name").html(selectedGift.getElementsByClassName("gift-name")[0].innerHTML);
-      $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + "Preview/Bigbang.html?giftid=" + selectedGift.id);
-      $("#gift-copylink-modal").modal("show");
-      
+        selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
+        console.log(window.location.href);
+        $("#gift-copylink-modal #copy-link-gift-name").html(selectedGift.getElementsByClassName("gift-name")[0].innerHTML);
+        $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + "Preview/Bigbang.html?giftid=" + selectedGift.id);
+        
+        var giftStatus = selectedGift.getElementsByClassName("gift-status")[0].innerHTML;
+        if (giftStatus == "Completed") {
+          $("#gift-copylink-modal").modal("show");
+        } else {
+          $("#gift-copylink-modal-incompleted").modal("show");
+        }
   });
 
   $(document).on( "click",".gift-remove", function( event ) {
