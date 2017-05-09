@@ -1,7 +1,10 @@
+var localGift = {};
+var giftID = "";
+var isCompleted = true;
 $(document).ready(function()
 {
 	init();
-	showSlide(1);
+	showSlide(2);
 	/*SLIDE 2*/
 
 	var curImgHeight = $("#balloon-img").height();
@@ -19,6 +22,8 @@ $(document).ready(function()
 		input5.height(newImgHeight * 0.3);
 		input5.width(newImgWidth * 0.3);
 		input5.offset({top: topImg + 0.2 * newImgHeight, left: leftImg + 0.01 * newImgWidth})
+		$("#wrapper_input5 textarea").width(input5.width());
+		$("#wrapper_input5 textarea").height(input5.height());
 
 		//Input 6
 		var input6 = $("#wrapper_input6");
@@ -31,6 +36,8 @@ $(document).ready(function()
 		input7.height(newImgHeight * 0.3);
 		input7.width(newImgWidth * 0.3);
 		input7.offset({top: topImg + 0.2 * newImgHeight, left: leftImg + 0.8 * newImgWidth})
+		$("#wrapper_input7 textarea").width(input7.width());
+		$("#wrapper_input7 textarea").height(input7.height());
 
 		curImgHeight = $("#balloon-img").height();
 		curImgWidth = $("#balloon-img").width();
@@ -144,13 +151,12 @@ $(document).ready(function()
 	});
 	$("#panel3_save").click(function()
 	{
-		uploadGiftTOFibrebase();
+		uploadGiftToFibrebase();
 	});
 
 
 	/*INIT*/
-	var localGift = {};
-	var giftID = "";
+	
 	function init(){
 		/*1. Get giftid*/
 		giftID = getParameterByName("giftid");
@@ -166,8 +172,25 @@ $(document).ready(function()
 		/*3. Display current status for the gift*/
 	}
 
-	function displayCurrentStatus(){
+	function displayEachInput(inputKey){
+		var value = localGift.inputs[inputKey];
+		console.log("Displaying " +inputKey + " " + value)
+		
+		if (value == "" || value == undefined) return;
+		$("#wrapper_" + inputKey).css({"background-color":"#fff"});
+		$("#"+inputKey).show();
+		console.log($("#"+inputKey +"-outer"));
+		$("#"+inputKey +"-outer").hide();
+		$("#"+inputKey).val(localGift.inputs[inputKey])
+	}
 
+	function displayCurrentStatus() {
+		displayEachInput("input1");
+		displayEachInput("input2");
+		displayEachInput("input8");
+
+		displayEachInput("input5");
+		displayEachInput("input7");
 	}
 
 	function getParameterByName(name, url) {
@@ -183,26 +206,74 @@ $(document).ready(function()
 
 
 	/*GETTING INPUT*/
-	$("#wrapper_input1").click(function(){
-		$("#wrapper_input1 h2").hide();
-		$("#wrapper_input1 input").show();
-		$("#wrapper_input1").css({"background-color":"#fff"});
-	})
+	function showInputField(inputNumber, inputType){
+		if (inputType == "text"){
+			$("#wrapper_input" + inputNumber).click(function(){
+				$("#wrapper_input" + inputNumber + " h2").hide();
+				$("#wrapper_input" + inputNumber + " input").show();
+				$("#wrapper_input" + inputNumber).css({"background-color":"#fff"});
+			})
+		}
 
-	function uploadGiftTOFibrebase(){
+		if (inputType == "textarea"){
+			$("#wrapper_input" + inputNumber).click(function(){
+				$("#wrapper_input" + inputNumber + " h2").hide();
+				$("#wrapper_input" + inputNumber + " textarea").show();
+				$("#wrapper_input" + inputNumber + " textarea").focus();
+				$("#wrapper_input" + inputNumber).css({"background-color":"#fff"});
+			})
+
+		}
+	}
+
+	function showInputFieldsAfterClick(){
+		showInputField(1, "text");
+		showInputField(2, "text");
+		showInputField(5, "textarea");
+		showInputField(7, "textarea");
+		showInputField(8, "text");
+	}
+	
+	showInputFieldsAfterClick();
+
+
+
+	function uploadGiftToFibrebase(){
+		isCompleted = true;
 		updateEachInput("input1");
+		updateEachInput("input2");
+		updateEachInput("input5");
+		updateEachInput("input7");
+		updateEachInput("input8");
+		sendToFirebase();
 	}
 
 	function updateEachInput(inputKey){
-		var updates = {};
+		if ($("#"+inputKey).val() == ""){
+			isCompleted = false;
+		}
 
 		/*Update localGift*/
-		console.log(localGift["inputs"]);
+		localGift.inputs[inputKey] = $("#"+inputKey).val();
+
 		//localGift["inputs"] = $("#"+inputKey).val();
 		console.log("Update inputKey " + inputKey);
-		//console.log("another one: " + localGift.inputs[inputKey]);
 
+		// updates["/gifts/" + giftID] = localGift;
+		// return database.ref().update(updates);
+	}
+
+	function sendToFirebase() {
+		var updates = {};
+		if (isCompleted){
+			localGift.status = "Completed"
+		} else {
+			localGift.status = "Incompleted"
+		}
 		updates["/gifts/" + giftID] = localGift;
 		return database.ref().update(updates);
+		
 	}
+
+
 });
