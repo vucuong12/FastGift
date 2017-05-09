@@ -164,6 +164,7 @@ $(document).ready(function()
 	/*INIT*/
 	
 	function init(){
+
 		/*0. Get mode*/
 		var localUrl = window.location.href;
 		if (localUrl.indexOf("Preview") > -1){

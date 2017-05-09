@@ -38,8 +38,18 @@ $(document).ready(function()
 			status: "Incompleted"
 		}
 
-		var newGiftKey = giftsDatabase.push(newGift).key;
-		callback(newGiftKey);
+		var something;
+		something = giftsDatabase.push(newGift, function(err){
+			if(err) {
+				alert(err);
+			} else {
+				var newGiftKey = something.key;
+				callback(newGiftKey);	
+			}
+		})
+
+		
+		
 
 		// /*Retrieving*/
 
