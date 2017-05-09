@@ -1,5 +1,6 @@
 var localGift = {};
-	var giftID = "";
+var giftID = "";
+var isCompleted = true;
 $(document).ready(function()
 {
 	init();
@@ -150,7 +151,7 @@ $(document).ready(function()
 	});
 	$("#panel3_save").click(function()
 	{
-		uploadGiftTOFibrebase();
+		uploadGiftToFibrebase();
 	});
 
 
@@ -237,24 +238,41 @@ $(document).ready(function()
 
 
 
-	function uploadGiftTOFibrebase(){
+	function uploadGiftToFibrebase(){
+		isCompleted = true;
 		updateEachInput("input1");
 		updateEachInput("input2");
 		updateEachInput("input5");
 		updateEachInput("input7");
 		updateEachInput("input8");
+		sendToFirebase();
 	}
 
 	function updateEachInput(inputKey){
-		var updates = {};
+		if ($("#"+inputKey).val() == ""){
+			isCompleted = false;
+		}
 
 		/*Update localGift*/
 		localGift.inputs[inputKey] = $("#"+inputKey).val();
+
 		//localGift["inputs"] = $("#"+inputKey).val();
 		console.log("Update inputKey " + inputKey);
 
+		// updates["/gifts/" + giftID] = localGift;
+		// return database.ref().update(updates);
+	}
+
+	function sendToFirebase() {
+		var updates = {};
+		if (isCompleted){
+			localGift.status = "Completed"
+		} else {
+			localGift.status = "Incompleted"
+		}
 		updates["/gifts/" + giftID] = localGift;
 		return database.ref().update(updates);
+		
 	}
 
 

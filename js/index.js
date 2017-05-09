@@ -34,7 +34,8 @@ $(document).ready(function()
 			inputs: {
 				input1: "",
 				input2: ""
-			}
+			},
+			status: "Incomplete"
 		}
 
 		var newGiftKey = giftsDatabase.push(newGift).key;
