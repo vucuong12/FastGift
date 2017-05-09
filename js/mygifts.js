@@ -29,14 +29,17 @@ $( document ).ready(function() {
     //     $(".gift-url").select();
     //     document.execCommand('copy');
     //   })
-
+    var selectedGift;
 	$(document).on( "click",".gift-copylink", function( event ) {
+      selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
+      console.log(window.location.href);
+      $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + "Preview/Bigbang.html?giftid=" + selectedGift.id);
       $("#gift-copylink-modal").modal("show");
-      
       
     });
 
     $(document).on( "click",".gift-remove", function( event ) {
+      selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
       $("#gift-remove-modal").modal("show");
     });
 
