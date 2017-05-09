@@ -12,7 +12,9 @@ $( document ).ready(function() {
         var receiver = childSnapshot.val().inputs["input1"];
         if(receiver == "") receiver = "somebody";
         gift.getElementsByClassName("gift-name")[0].innerHTML = "Gift to " + receiver;
-        gift.getElementsByClassName("gift-status")[0].innerHTML = childSnapshot.val()["status"];
+        var status = childSnapshot.val()["status"];
+        gift.getElementsByClassName("gift-status")[0].innerHTML = status;
+        gift.getElementsByClassName("gift-details")[0].style.backgroundColor = status == "Completed" ? "#5fcff1" : "#cbd1d8";
         giftManager.appendChild(gift);
     });
   });
