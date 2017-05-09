@@ -1,5 +1,6 @@
 $(document).ready(function()
 {
+	init();
 	showSlide(1);
 	/*SLIDE 2*/
 
@@ -143,6 +144,63 @@ $(document).ready(function()
 	});
 	$("#panel3_save").click(function()
 	{
-		
+		uploadGiftTOFibrebase();
 	});
+
+
+	/*INIT*/
+	var localGift = {};
+	var giftID = "";
+	function init(){
+		/*1. Get giftid*/
+		giftID = getParameterByName("giftid");
+		console.log("giftID " + giftID )
+		/*2. Get gift from firebase*/
+		database.ref("gifts/" + giftID).once("value").then(function(snapshot){
+			localGift = snapshot.val();
+			console.log(localGift);
+			displayCurrentStatus();
+		});
+		
+		/*3. Display current status for the gift*/
+	}
+
+	function displayCurrentStatus(){
+
+	}
+
+	function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+
+
+
+	/*GETTING INPUT*/
+	$("#wrapper_input1").click(function(){
+		$("#wrapper_input1 h2").hide();
+		$("#wrapper_input1 input").show();
+		$("#wrapper_input1").css({"background-color":"#fff"});
+	})
+
+	function uploadGiftTOFibrebase(){
+		updateEachInput("input1");
+	}
+
+	function updateEachInput(inputKey){
+		var updates = {};
+
+		/*Update localGift*/
+		localGift.inputs[inputKey] = $("#"+inputKey).val();
+		console.log("Update inputKey " + inputKey);
+		console.log(localGift)
+
+		updates["/gifts/" + giftID] = localGift;
+		return database.ref().update(updates);
+	}
 });

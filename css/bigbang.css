@@ -38,7 +38,7 @@ div.header_mid div {
 #wrapper_input1 {
   background-color: #f8ff9c;
   text-align: center;
-  width: 35%;
+  min-width: 35%;
 }
 
 #panel1_body img {
@@ -62,7 +62,17 @@ div.header_mid div {
   border-radius: 0;
 }
 
+#wrapper_input1:hover {
+  cursor: pointer;
+}
 
+#wrapper_input1 input {
+  height: 49px;
+  font-size: 36px;
+  top: -1px;
+  position: relative;
+  max-width: 200px;
+}
 
 /*PANEL 2*/
 
