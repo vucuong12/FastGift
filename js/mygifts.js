@@ -1,5 +1,21 @@
 $( document ).ready(function() {
-
+  database.ref("gifts/").once('value', function(snapshot)
+  {
+    var giftManager = document.getElementById('gift-manager');
+    var giftTemplate = document.getElementById('gift-template');
+    snapshot.forEach(function(childSnapshot)
+    {
+        console.log(childSnapshot.key);
+        var gift=giftTemplate.cloneNode(true);
+        gift.id=childSnapshot.key;
+        // for each gift, now we have to edit its gift-name, gift-status, preview-link, edit-link, send-link and remove button.
+        // setname
+        gift.getElementsByClassName("gift-name")[0].innerHTML = childSnapshot.key;
+        gift.getElementsByClassName("gift-status")[0].innerHTML = "??";
+        gift.
+        giftManager.appendChild(gift);
+    });
+  });
 	$(document).on( "click",".gift-edit", function( event ) {
       alert("Edit");
     });

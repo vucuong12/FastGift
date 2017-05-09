@@ -159,11 +159,12 @@ $(document).ready(function()
 	function init(){
 		/*1. Get giftid*/
 		giftID = getParameterByName("giftid");
-		console.log("giftID " + giftID )
-		/*2. Get 	gift from firebase*/
+		//console.log("giftID " + giftID )
+		/*2. Get gift from firebase*/
 		database.ref("gifts/" + giftID).once("value").then(function(snapshot){
 			localGift = snapshot.val();
-			console.log(localGift);
+			console.log("Hi: " + localGift);
+			console.log(localGift.inputs.input1);
 			displayCurrentStatus();
 		});
 		
@@ -249,6 +250,9 @@ $(document).ready(function()
 
 		/*Update localGift*/
 		localGift.inputs[inputKey] = $("#"+inputKey).val();
+		//localGift["inputs"] = $("#"+inputKey).val();
+		console.log("Update inputKey " + inputKey);
+
 		updates["/gifts/" + giftID] = localGift;
 		return database.ref().update(updates);
 	}
