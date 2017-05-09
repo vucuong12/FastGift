@@ -4,7 +4,7 @@ var isCompleted = true;
 $(document).ready(function()
 {
 	init();
-	showSlide(2);
+	showSlide(1);
 	/*SLIDE 2*/
 
 	var curImgHeight = $("#balloon-img").height();
@@ -271,7 +271,9 @@ $(document).ready(function()
 			localGift.status = "Incompleted"
 		}
 		updates["/gifts/" + giftID] = localGift;
-		return database.ref().update(updates);
+		return database.ref().update(updates, function(err){
+			window.location.href = "../Preview/Bigbang.html?giftid=" + giftID;	
+		});
 		
 	}
 
