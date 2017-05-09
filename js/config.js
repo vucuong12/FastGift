@@ -11,3 +11,12 @@ var config = {
 firebase.initializeApp(config);
 console.log(firebase);
 
+/*TESTING*/
+
+var database = firebase.database();
+
+var giftsDatabase = database.ref("gifts");
+
+
+
+
