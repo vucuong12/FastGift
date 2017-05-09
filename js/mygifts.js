@@ -25,37 +25,41 @@ $( document ).ready(function() {
       window.location.href = "Editing/Bigbang.html?giftid=" + gift.id;
     });
 
-    // $('#gift-copylink-modal').on('shown.bs.modal', function() {
-    //     $(".gift-url").select();
-    //     document.execCommand('copy');
-    //   })
-
+  var selectedGift;
 	$(document).on( "click",".gift-copylink", function( event ) {
+      selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
+      console.log(window.location.href);
+      $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + "Preview/Bigbang.html?giftid=" + selectedGift.id);
       $("#gift-copylink-modal").modal("show");
       
-      
-    });
+  });
 
-    $(document).on( "click",".gift-remove", function( event ) {
-      $("#gift-remove-modal").modal("show");
-    });
+  $(document).on( "click",".gift-remove", function( event ) {
+    selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
+    $("#gift-remove-modal").modal("show");
+  });
 
+  $(document).on("click","#gift-remove-modal .btn-danger", function(event)
+  {
+    database.ref("gifts/" + selectedGift.id).remove();
+    selectedGift.remove();
+  });
 
-    $(document).on( "click",".gift-url", function( event ) {
-      $(".gift-url").select();
-      document.execCommand('copy');
-    });
-    $(".url-wrapper").mousedown(function(e){ e.preventDefault(); });
-    $(".url-wrapper").click(function(e){
+  $(document).on( "click",".gift-url", function( event ) {
+    $(".gift-url").select();
+    document.execCommand('copy');
+  });
+  $(".url-wrapper").mousedown(function(e){ e.preventDefault(); });
+  $(".url-wrapper").click(function(e){
 
-    	$(".gift-url").select();
-    	//alert("DM");
-      document.execCommand('copy');
-    })
+  	$(".gift-url").select();
+  	//alert("DM");
+    document.execCommand('copy');
+  })
 
-    $("#copy-link-btn").click(function(e){
+  $("#copy-link-btn").click(function(e){
 
-      $(".gift-url").select();
-      document.execCommand('copy');
-    })
+    $(".gift-url").select();
+    document.execCommand('copy');
+  })
 })
