@@ -5,7 +5,84 @@ var mode = "";
 $(document).ready(function()
 {
 	init();
-	showSlide(1);
+	if ($( "#hand" ).length > 0){
+		$( "#hand" ).draggable({
+			stop: function( event, ui ) {
+		        var offset = $(this).offset();
+		        var left = offset.left + $(this).width() / 2;
+		        var top = offset.top + $(this).height() / 2;
+		        
+		        var img = $("#panel1_body img");
+		        var leftImg = img.offset().left;
+		        var topImg = img.offset().top;
+		        var widthImg = img.width();
+		        var heightImg = img.height();
+		        
+		        if (leftImg < left && left < leftImg + widthImg
+		        &&  topImg < top && top < topImg + heightImg){
+		        	console.log("Inside img");
+		        	showSlide(2);
+		        }
+		        
+			}
+		});
+	}
+	
+
+	if ($( "#needle" ).length > 0){
+		$( "#needle" ).draggable({
+			stop: function( event, ui ) {
+		        var offset = $(this).offset();
+		        var left = offset.left + $(this).width() / 2;
+		        var top = offset.top + $(this).height() / 2;
+		        
+		        var img = $("#panel2_body img");
+		        var leftImg = img.offset().left;
+		        var topImg = img.offset().top;
+		        var widthImg = img.width();
+		        var heightImg = img.height();
+		        
+		        if (leftImg < left && left < leftImg + widthImg
+		        &&  topImg < top && top < topImg + heightImg){
+		        	console.log("Inside img");
+		        	showSlide(3);
+		        }
+		        
+			}
+		});
+	}
+	
+
+
+	
+	function showHand(){
+		if (mode === "editing") return;
+		console.log("showhand")
+		$( "#hand" ).show();
+		$( "#hand" )
+		.css({"position": "fixed"})
+		.css({"top":"250px"})
+		.css({"right":"100px", "left": "auto"})
+		// var offset = $("#panel1_body img").offset();
+  //       var leftPos = offset.left + $("#panel1_body img").width() + 20;
+  //       var topPos = offset.top + $("#panel1_body img").height() / 2;
+  //       $( "#hand" ).offset({top: topPos, left:leftPos})
+	}
+
+	function showNeedle(){
+		if (mode === "editing") return;
+		$( "#needle" ).show();
+		$( "#needle" )
+		.css({"top":"300px"})
+		.css({"right":"200px", "left": "auto"})
+		// var offset = $("#panel2_body img").offset();
+  //       var leftPos = offset.left + $("#panel2_body img").width() + 70;
+  //       var topPos = offset.top + $("#panel2_body img").height() / 2;
+  //       console.log("====");
+  //       console.log(leftPos, topPos);
+  //       $( "#needle" ).offset({top: topPos, left:leftPos})
+	}
+	
 	/*SLIDE 2*/
 
 	var curImgHeight = $("#balloon-img").height();
@@ -99,6 +176,7 @@ $(document).ready(function()
 
 	$("#slide1").click(function(){
 		showSlide(1);
+		
 	})
 
 	$("#slide2").click(function(){
@@ -106,7 +184,9 @@ $(document).ready(function()
 	})
 
 	$("#slide3").click(function(){
+		
 		showSlide(3);
+		
 	})
 
 	
@@ -115,6 +195,14 @@ $(document).ready(function()
 		if ($('#panel' + slideNumber).css('display') != 'none') {
 			return;
 		}
+		if (mode == "preview" || mode == "receiving"){
+			$(".navi-button").hide();
+			$("#panel3_startover").show();
+		} else {
+			$(".navi-button").show();
+			$("#panel3_startover").hide();
+		}
+
 		for (var i = 1; i < totalSlide + 1; i++){
 			if (i == slideNumber){
 				$("#panel" + i).show();	
@@ -128,12 +216,26 @@ $(document).ready(function()
 
 		if (slideNumber == 3){
 			adjustInput9();	
-			if (mode === "Preview" || mode === "preview"){
+			if (mode === "preview" || mode === "receiving"){
 				$("#panel3_save").remove();	
 			}
 			
 		} else if (slideNumber == 2){
 			adjustInput567();
+		}
+
+		if (slideNumber === 1){
+			$("#needle").hide();
+			showHand();
+		}
+		if (slideNumber === 2){
+			
+			$("#hand").hide();
+			showNeedle();
+		}
+		if (slideNumber === 3){
+			$("#needle").hide();
+			$("#hand").hide();
 		}
 	}
 	
@@ -159,6 +261,14 @@ $(document).ready(function()
 	{
 		uploadGiftToFibrebase();
 	});
+	$("#panel3_startover").click(function()
+	{
+		showSlide(1);
+	});
+
+	$("#back-to-edit").click(function(){
+		window.location.href = "../Editing/Bigbang.html?mode=editing&giftid=" +giftID;
+	})
 
 
 	/*INIT*/
@@ -167,28 +277,39 @@ $(document).ready(function()
 
 		/*0. Get mode*/
 		var localUrl = window.location.href;
-		if (localUrl.indexOf("Preview") > -1){
-			mode = "Preview"
-		} else if (localUrl.indexOf("Editing") > -1) {
-			mode = "Editing"
-		}
+		// if (localUrl.indexOf("Preview") > -1 || localUrl.indexOf("preview") > -1){
+		// 	mode = "Preview"
+		// } else if (localUrl.indexOf("Editing") > -1 || localUrl.indexOf("editing") > -1) {
+		// 	mode = "Editing"
+		// } else if (localUrl.indexOf("gifts") > -1|| localUrl.indexOf("Preview") > -1){
+		// 	mode = "Receiving"
+		// }
 		/*1. Get giftid*/
 		giftID = getParameterByName("giftid");
+		mode = getParameterByName("mode");
+
+		if (mode === "receiving"){
+			$("#back-to-mygifts").hide();
+		}
+
 		//console.log("giftID " + giftID )
 		/*2. Get gift from firebase*/
 		database.ref("gifts/" + giftID).once("value").then(function(snapshot){
 			localGift = snapshot.val();
 			console.log("Hi: " + localGift);
 			console.log(localGift.inputs.input1);
-			displayCurrentStatus();
+			displayCurrentStatus(function(){
+				showSlide(1);
+
+			});
 		});
 		
-		/*3. Display current status for the gift*/
+		
 	}
 
 	function displayEachInput(inputKey){
 		var value = localGift.inputs[inputKey];
-		if (mode === "Preview"){
+		if (mode === "preview" || mode === "receiving"){
 			if (value == "" || value == undefined) {
 
 			} else {
@@ -227,13 +348,14 @@ $(document).ready(function()
 		$("#"+inputKey).val(localGift.inputs[inputKey])
 	}
 
-	function displayCurrentStatus() {
+	function displayCurrentStatus(callback) {
 		displayEachInput("input1");
 		displayEachInput("input2");
 		displayEachInput("input8");
 
 		displayEachInput("input5");
 		displayEachInput("input7");
+		callback();
 	}
 
 	function getParameterByName(name, url) {
@@ -270,7 +392,7 @@ $(document).ready(function()
 	}
 
 	function showInputFieldsAfterClick(){
-		if (mode === "Preview") return;
+		if (mode === "preview" || mode === "receiving") return;
 		showInputField(1, "text");
 		showInputField(2, "text");
 		showInputField(5, "textarea");
@@ -316,7 +438,7 @@ $(document).ready(function()
 		}
 		updates["/gifts/" + giftID] = localGift;
 		return database.ref().update(updates, function(err){
-			window.location.href = "../Preview/Bigbang.html?giftid=" + giftID;	
+			window.location.href = "../Preview/Bigbang.html?mode=preview&giftid=" + giftID;	
 		});
 		
 	}

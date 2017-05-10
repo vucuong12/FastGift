@@ -22,7 +22,7 @@ $(document).ready(function()
 
 	$("#bigbang-img, #to-making-btn").click(function(){
 		createNewGift(function(giftID){
-			window.location.href = "Editing/Bigbang.html?giftid=" + giftID;	
+			window.location.href = "Editing/Bigbang.html?mode=editing&giftid=" + giftID;	
 		})
 
 	})

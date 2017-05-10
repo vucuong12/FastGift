@@ -83,7 +83,7 @@ div.header_mid div {
 
 /*PANEL 2*/
 
-#panel2_body img {
+#panel2_body #balloon-img {
   height: 97%; 
   width: auto;
   display: block;
@@ -205,4 +205,17 @@ textarea {
    white-space: -pre-wrap;     /* Opera <7 */   
    white-space: -o-pre-wrap;   /* Opera 7 */    
    word-wrap: break-word;      /* IE */
+}
+
+#back-to-edit {
+    color: black;
+    position: fixed;
+    top: 0;
+    right: 0;
+    border-radius: 0;
+    opacity: 0.3;
+}
+
+#hand:hover, #needle:hover {
+  cursor: pointer;
 }

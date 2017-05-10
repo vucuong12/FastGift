@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+  
   database.ref("gifts/").once('value', function(snapshot)
   {
     var giftManager = document.getElementById('gift-manager');
@@ -34,12 +35,12 @@ $( document ).ready(function() {
 
   $(document).on( "click",".gift-preview", function(event) {
       var gift = this.parentNode.parentNode.parentNode.parentNode; //really?
-      window.location.href = "Preview/Bigbang.html?giftid=" + gift.id;
+      window.location.href = "Preview/Bigbang.html?mode=preview&giftid=" + gift.id;
     });
 
 	$(document).on( "click",".gift-edit", function( event ) {
       var gift = this.parentNode.parentNode.parentNode.parentNode; //really?
-      window.location.href = "Editing/Bigbang.html?giftid=" + gift.id;
+      window.location.href = "Editing/Bigbang.html?mode=editing&giftid=" + gift.id;
     });
 
   var selectedGift;
@@ -47,7 +48,7 @@ $( document ).ready(function() {
         selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
         console.log(window.location.href);
         $("#gift-copylink-modal #copy-link-gift-name").html(selectedGift.getElementsByClassName("gift-name")[0].innerHTML);
-        $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + "Preview/Bigbang.html?giftid=" + selectedGift.id);
+        $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + "Preview/Bigbang.html?mode=receiving&giftid=" + selectedGift.id);
         
         var giftStatus = selectedGift.getElementsByClassName("gift-status")[0].innerHTML;
         if (giftStatus == "Completed") {
@@ -84,5 +85,12 @@ $( document ).ready(function() {
 
     $(".gift-url").select();
     document.execCommand('copy');
+    $("#done-copy-btn").notify("Link is copied to the clipboard", { 
+      position:"right",
+      className: "success",
+      showDuration: 400,
+      hideAnimation: 'slideUp',
+    });
+
   })
 })
