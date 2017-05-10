@@ -128,7 +128,7 @@ $(document).ready(function()
 
 		if (slideNumber == 3){
 			adjustInput9();	
-			if (mode === "Preview"){
+			if (mode === "Preview" || mode === "preview"){
 				$("#panel3_save").remove();	
 			}
 			
