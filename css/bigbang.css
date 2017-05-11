@@ -219,3 +219,7 @@ textarea {
 #hand:hover, #needle:hover {
   cursor: pointer;
 }
+
+#wrapper_input6:hover {
+  cursor: pointer;
+}

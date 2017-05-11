@@ -2,9 +2,31 @@ var localGift = {};
 var giftID = "";
 var isCompleted = true;
 var mode = "";
+var img1_url = "";
 $(document).ready(function()
 {
 	init();
+
+	$("#wrapper_input6").click(function(){
+		$("#img-input-modal").modal("show");
+	})
+
+	$("#img-input-modal .done").click(function(){
+		
+		img1_url = $("#img-input-modal input").val();
+		$("#img-input-modal").modal("hide");
+		alert(img1_url)
+		$("#wrapper_input6").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+		$("#wrapper_input6 img").attr('src', img1_url).show();
+		$("#wrapper_input6 h2").hide();
+		
+	})
+
+	$("#img-input-modal .cancel").click(function(){
+		$("#img-input-modal").modal("hide");
+	})
+
+
 	if ($( "#hand" ).length > 0){
 		$( "#hand" ).draggable({
 			stop: function( event, ui ) {
@@ -313,6 +335,13 @@ $(document).ready(function()
 			if (value == "" || value == undefined) {
 
 			} else {
+				if (inputKey === "input6"){
+					console.log("Preview input6")
+					$("#wrapper_input6").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+					$("#wrapper_input6 img").attr('src', value).show();
+					$("#wrapper_input6 h2").hide();
+					return
+				}
 				$("#"+inputKey).hide();
 				$("#"+inputKey +"-outer").show();
 				$("#"+inputKey +"-outer").html(localGift.inputs[inputKey])
@@ -341,6 +370,14 @@ $(document).ready(function()
 		console.log("Displaying " +inputKey + " " + value)
 		
 		if (value == "" || value == undefined) return;
+
+		if (inputKey === "input6"){
+					$("#wrapper_input6").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+					$("#wrapper_input6 img").attr('src', value).show();
+					$("#wrapper_input6 h2").hide();
+					return
+				}
+
 		$("#wrapper_" + inputKey).css({"background-color":"#fff"});
 		$("#"+inputKey).show();
 		console.log($("#"+inputKey +"-outer"));
@@ -354,6 +391,7 @@ $(document).ready(function()
 		displayEachInput("input8");
 
 		displayEachInput("input5");
+		displayEachInput("input6");
 		displayEachInput("input7");
 		callback();
 	}
@@ -409,6 +447,7 @@ $(document).ready(function()
 		updateEachInput("input1");
 		updateEachInput("input2");
 		updateEachInput("input5");
+		updateEachInput("input6");
 		updateEachInput("input7");
 		updateEachInput("input8");
 		sendToFirebase();
@@ -420,7 +459,17 @@ $(document).ready(function()
 		}
 
 		/*Update localGift*/
-		localGift.inputs[inputKey] = $("#"+inputKey).val();
+		
+		if (inputKey == "input6"){
+			if ($("#img-input-modal input").val() != ""){
+				localGift.inputs[inputKey] = $("#img-input-modal input").val();
+				console.log("Input 6" + localGift.inputs[inputKey]);	
+			} 
+			
+		} else {
+			localGift.inputs[inputKey] = $("#"+inputKey).val();
+		}
+
 
 		//localGift["inputs"] = $("#"+inputKey).val();
 		console.log("Update inputKey " + inputKey);
