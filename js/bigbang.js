@@ -333,13 +333,34 @@ $(document).ready(function()
 		
 	}
 
-	function displayEachInput(inputKey){
+	function displayEachInput(inputKey, inputType, defaultValue = "Your message"){
 		var value = localGift.inputs[inputKey];
+		var hasValue = !(value == "" || value == undefined);
 		if (mode === "preview" || mode === "receiving"){
-			if (value == "" || value == undefined) {
+			if (!hasValue) {
+				if (inputType === "image"){
 
+				} else {
+					if (inputType == "text"){
+						$("#wrapper_" + inputKey + " h2").hide();
+						$("#wrapper_" + inputKey + " input").show();
+						$("#wrapper_" + inputKey).css({"background-color":"#fff"});
+						$("#wrapper_" + inputKey + " input").attr("placeholder", defaultValue);
+					}
+
+					if (inputType == "textarea"){
+						console.log("---> " + inputKey);
+						$("#wrapper_" + inputKey + " h2").hide();
+						$("#wrapper_" + inputKey + " div").hide();
+						$("#wrapper_" + inputKey + " textarea").show();
+						$("#wrapper_" + inputKey + " textarea").focus();
+						$("#wrapper_" + inputKey + " textarea").attr("placeholder", defaultValue);
+						$("#wrapper_" + inputKey).css({"background-color":"#fff"});
+
+					}
+				}
 			} else {
-				if (inputKey === "input6"){
+				if (inputType === "image"){
 					console.log("Preview input6")
 					$("#wrapper_input6").css({ 'background-color':"rgba(255, 0, 0, 0)" })
 					$("#wrapper_input6 img").attr('src', value).show();
@@ -369,34 +390,66 @@ $(document).ready(function()
 			
 			return;
 		}
+		// Editing mode
+		if (inputType === "image"){
 
-		
-		console.log("Displaying " +inputKey + " " + value)
-		
-		if (value == "" || value == undefined) return;
-
-		if (inputKey === "input6"){
-					$("#wrapper_input6").css({ 'background-color':"rgba(255, 0, 0, 0)" })
-					$("#wrapper_input6 img").attr('src', value).show();
-					$("#wrapper_input6 h2").hide();
-					return
+		} else {
+			if (inputType == "text"){
+				$("#wrapper_" + inputKey + " h2").hide();
+				$("#wrapper_" + inputKey + " input").show();
+				$("#wrapper_" + inputKey).css({"background-color":"#fff"});
+				if (!hasValue){
+					$("#wrapper_" + inputKey + " input").attr("placeholder", defaultValue);	
+				} else {
+					$("#wrapper_" + inputKey + " input").val(value);
 				}
+				
+			}
 
-		$("#wrapper_" + inputKey).css({"background-color":"#fff"});
-		$("#"+inputKey).show();
-		console.log($("#"+inputKey +"-outer"));
-		$("#"+inputKey +"-outer").hide();
-		$("#"+inputKey).val(localGift.inputs[inputKey])
+			if (inputType == "textarea"){
+				console.log("---> " + inputKey);
+				$("#wrapper_" + inputKey + " h2").hide();
+				$("#wrapper_" + inputKey + " div").hide();
+				$("#wrapper_" + inputKey + " textarea").show();
+				$("#wrapper_" + inputKey + " textarea").focus();
+				
+				if (!hasValue){
+					$("#wrapper_" + inputKey + " textarea").attr("placeholder", defaultValue);
+				} else {
+					$("#wrapper_" + inputKey + " textarea").html(value);
+				}
+				$("#wrapper_" + inputKey).css({"background-color":"#fff"});
+
+			}
+		}
+
+		
+		// console.log("Displaying " +inputKey + " " + value)
+		
+		// if (value == "" || value == undefined) return;
+
+		// if (inputKey === "input6"){
+		// 			$("#wrapper_input6").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+		// 			$("#wrapper_input6 img").attr('src', value).show();
+		// 			$("#wrapper_input6 h2").hide();
+		// 			return
+		// 		}
+
+		// $("#wrapper_" + inputKey).css({"background-color":"#fff"});
+		// $("#"+inputKey).show();
+		// console.log($("#"+inputKey +"-outer"));
+		// $("#"+inputKey +"-outer").hide();
+		// $("#"+inputKey).val(localGift.inputs[inputKey])
 	}
 
 	function displayCurrentStatus(callback) {
-		displayEachInput("input1");
-		displayEachInput("input2");
-		displayEachInput("input8");
+		displayEachInput("input1", "text", "Receiver's name");
+		displayEachInput("input2", "text");
+		displayEachInput("input8", "text");
 
-		displayEachInput("input5");
-		displayEachInput("input6");
-		displayEachInput("input7");
+		displayEachInput("input5", "textarea");
+		displayEachInput("input6", "image");
+		displayEachInput("input7", "textarea");
 		callback();
 	}
 

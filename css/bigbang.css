@@ -62,16 +62,24 @@ div.header_mid div {
   border-radius: 0;
 }
 
-#wrapper_input1:hover {
+/*#wrapper_input1:hover {
   cursor: pointer;
-}
+}*/
 
-#wrapper_input1 input, #wrapper_input2 input, #wrapper_input8 input {
+#wrapper_input1 input {
   height: 49px;
   font-size: 36px;
   top: -1px;
   position: relative;
-  max-width: 200px;
+  max-width: 300px;
+}
+
+ #wrapper_input2 input, #wrapper_input8 input {
+  height: 49px;
+  font-size: 36px;
+  top: -1px;
+  position: relative;
+  /*max-width: 200px;*/
 }
 
 #wrapper_input5 {
@@ -246,4 +254,12 @@ textarea {
 
 #wrapper_input6:hover {
   cursor: pointer;
+}
+
+.blink_me {
+  animation: blinker 1.5s linear infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0; }
 }
