@@ -292,6 +292,10 @@ $(document).ready(function()
 		window.location.href = "../Editing/Bigbang.html?mode=editing&giftid=" +giftID;
 	})
 
+	$("#back-to-home").click(function(){
+		window.location.href = "../index.html";
+	})
+
 
 	/*INIT*/
 	
@@ -311,7 +315,7 @@ $(document).ready(function()
 		mode = getParameterByName("mode");
 
 		if (mode === "receiving"){
-			$("#back-to-mygifts").hide();
+			$("#back-to-edit").hide();
 		}
 
 		//console.log("giftID " + giftID )
