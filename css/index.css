@@ -38,3 +38,7 @@
 #bigbang-img:hover {
 	cursor: pointer;
 }
+
+.unavailable:hover {
+	cursor: pointer;
+}

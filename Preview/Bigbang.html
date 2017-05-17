@@ -102,9 +102,10 @@
               <div style="background-color: #f8ff9c" class="wordwrap" id="input5-outer" style="margin-top: 10px;">+Text</div>
               <textarea id="input5" style="display: none" ></textarea>
             </div>
-          <div id="wrapper_input6">
-            <h2 id="input6-outer" style="margin-top: 3px;margin-left: 3px;">+Image</h2>
-            <img style="display: none; width: 100%; height: auto" ></img>
+          <div id="wrapper_input6" style="background-color:rgba(255, 0, 0, 0)">
+            <img id="input6_img" src="../images/add_image.png" style="width: 100%; height: auto" ></img>
+            <!-- <h2 id="input6-outer" style="margin-top: 3px;margin-left: 3px;">+Image</h2> -->
+            <img id="output6" style="display: none; width: 100%; height: auto" ></img>
           </div>
           <div id="wrapper_input7" class="wrapper_input">
              
@@ -144,8 +145,13 @@
         <!-- BODY PANEL 3 -->
         <div id="panel3_body" class="panel_body">
           <img id="gift_card_panel3" src="../images/card.png">
-          <div id="wrapper_input9">
-            <h1>+Video</h1>
+          <div id="wrapper_input9" style="text-align: center;">
+            <img src="../images/add_video.png">
+            <video style="display: none" width="400" controls>
+              <source src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" type="video/mp4">
+              <!-- <source src="http://clips.vorwaerts-gmbh.de/VfE.ogv" type="video/ogg"> -->
+              Your browser does not support HTML5 video.
+            </video>
           </div>
         </div>
 

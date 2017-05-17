@@ -3,10 +3,11 @@ var giftID = "";
 var isCompleted = true;
 var mode = "";
 var img1_url = "";
+var video1_url = "";
 $(document).ready(function()
 {
 	init();
-
+	/*Image*/
 	$("#wrapper_input6").click(function(){
 		$("#img-input-modal").modal("show");
 	})
@@ -15,15 +16,34 @@ $(document).ready(function()
 		
 		img1_url = $("#img-input-modal input").val();
 		$("#img-input-modal").modal("hide");
-		alert(img1_url)
 		$("#wrapper_input6").css({ 'background-color':"rgba(255, 0, 0, 0)" })
-		$("#wrapper_input6 img").attr('src', img1_url).show();
-		$("#wrapper_input6 h2").hide();
+		$("#wrapper_input6 #output6").attr('src', img1_url).show();
+		$("#wrapper_input6 #input6_img").hide();
 		
 	})
 
 	$("#img-input-modal .cancel").click(function(){
 		$("#img-input-modal").modal("hide");
+	})
+
+	/*Video*/
+	$("#wrapper_input9").click(function(){
+		$("#video-input-modal").modal("show");
+	})
+
+	$("#video-input-modal .done").click(function(){
+		
+		video1_url = $("#video-input-modal input").val();
+		$("#video-input-modal").modal("hide");
+		
+		$("#wrapper_input9").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+		$("#wrapper_input9 source").attr('src', video1_url);
+		$("#wrapper_input9 video").show();
+		$("#wrapper_input9 img").hide();
+	})
+
+	$("#video-input-modal .cancel").click(function(){
+		$("#video-input-modal").modal("hide");
 	})
 
 
@@ -316,6 +336,7 @@ $(document).ready(function()
 
 		if (mode === "receiving"){
 			$("#back-to-edit").hide();
+			$("#back-to-home").hide();
 		}
 
 		//console.log("giftID " + giftID )
@@ -338,7 +359,9 @@ $(document).ready(function()
 		var hasValue = !(value == "" || value == undefined);
 		if (mode === "preview" || mode === "receiving"){
 			if (!hasValue) {
-				if (inputType === "image"){
+				if (inputType === "video"){
+
+				} else if (inputType === "image"){
 
 				} else {
 					if (inputType == "text"){
@@ -360,11 +383,17 @@ $(document).ready(function()
 					}
 				}
 			} else {
-				if (inputType === "image"){
+				if (inputType === "video") {
+					$("#wrapper_input9").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+					$("#wrapper_input9 source").attr('src', value);
+					$("#wrapper_input9 video").show();
+					$("#wrapper_input9 img").hide();
+					return;
+				} else if (inputType === "image"){
 					console.log("Preview input6")
 					$("#wrapper_input6").css({ 'background-color':"rgba(255, 0, 0, 0)" })
-					$("#wrapper_input6 img").attr('src', value).show();
-					$("#wrapper_input6 h2").hide();
+					$("#wrapper_input6 #output6").attr('src', value).show();
+					$("#wrapper_input6 #input6_img").hide();
 					return
 				}
 				$("#"+inputKey).hide();
@@ -391,8 +420,20 @@ $(document).ready(function()
 			return;
 		}
 		// Editing mode
-		if (inputType === "image"){
-
+		if(inputType === "video") {
+			if (hasValue){
+				$("#wrapper_input9").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+				$("#wrapper_input9 source").attr('src', value);
+				$("#wrapper_input9 video").show();
+				$("#wrapper_input9 img").hide();
+			}
+		}else if (inputType === "image"){
+			if (hasValue){
+				$("#img-input-modal input").val(value);
+				$("#wrapper_input6").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+				$("#wrapper_input6 #output6").attr('src', value).show();
+				$("#wrapper_input6 #input6_img").hide();
+			}
 		} else {
 			if (inputType == "text"){
 				$("#wrapper_" + inputKey + " h2").hide();
@@ -450,6 +491,8 @@ $(document).ready(function()
 		displayEachInput("input5", "textarea");
 		displayEachInput("input6", "image");
 		displayEachInput("input7", "textarea");
+
+		displayEachInput("input9", "video");
 		callback();
 	}
 
@@ -501,23 +544,29 @@ $(document).ready(function()
 
 	function uploadGiftToFibrebase(){
 		isCompleted = true;
-		updateEachInput("input1");
-		updateEachInput("input2");
-		updateEachInput("input5");
-		updateEachInput("input6");
-		updateEachInput("input7");
-		updateEachInput("input8");
+		updateEachInput("input1", "text");
+		updateEachInput("input2", "text");
+		updateEachInput("input5", "textarea");
+		updateEachInput("input6", "image");
+		updateEachInput("input7", "textarea");
+		updateEachInput("input8", "text");
+		updateEachInput("input9", "video");
 		sendToFirebase();
 	}
 
-	function updateEachInput(inputKey){
+	function updateEachInput(inputKey, inputType){
 		if ($("#"+inputKey).val() == ""){
 			isCompleted = false;
 		}
 
 		/*Update localGift*/
 		
-		if (inputKey == "input6"){
+		if (inputType === "video") {
+			if ($("#video-input-modal input").val() != ""){
+				localGift.inputs[inputKey] = $("#video-input-modal input").val();
+				console.log("Input 9" + localGift.inputs[inputKey]);	
+			} 
+		} else if (inputType == "image"){
 			if ($("#img-input-modal input").val() != ""){
 				localGift.inputs[inputKey] = $("#img-input-modal input").val();
 				console.log("Input 6" + localGift.inputs[inputKey]);	

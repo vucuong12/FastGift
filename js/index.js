@@ -27,6 +27,10 @@ $(document).ready(function()
 
 	})
 
+	$(".unavailable").click(function(){
+		alert("Coming soon");
+	})
+
 
 
 	function createNewGift(callback){
