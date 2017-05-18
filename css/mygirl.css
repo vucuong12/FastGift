@@ -1,0 +1,178 @@
+.gift-panel {
+  height: 90vh;
+}
+
+#left_toolbar {
+  border-style: solid;
+  border-right: 0
+  border-right: thick double #ff0000;
+}
+
+#center_board {
+  /*border-style: solid;*/
+}
+
+.slide {
+  border-style: solid;
+  border-width: 1px;
+  padding: 1px;
+  margin-bottom: 20px;
+  margin-top: 10px; 
+  width: 100%;
+}
+
+.current-slide{
+  border: solid 5px red;
+}
+
+.panel_body {
+  /*padding-top: 100px;*/
+  height: 100%;
+  /*border: solid 1px blue;*/
+}
+
+/*#panel1, #panel2 {
+	display: none;
+}*/
+
+
+
+
+
+
+/*Premade*/
+#outside {
+  z-index: 1;
+  position: absolute;
+  background-color: lightgray;
+  width: 100%;
+  /*height: 100%;*/
+  text-align: center;
+  transition: 1s;
+  transform-origin: 0;
+}
+
+#inside {
+  z-index: 0;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  /*height: 100%;*/
+  text-align: center;
+}
+
+.open-card {
+  transform: rotateY(90deg);
+}
+
+#input1-outer {
+  color: black;
+  font-family: Courier;
+  font-size: 12pt;
+  text-align: center;
+}
+
+#outside-pic {
+  width: 150px;
+  height: 150px;
+}
+
+#outside-help {
+  color: black;
+  font-family: Courier;
+  font-size: 12pt;
+  text-align: center;
+  padding: 20px;
+}
+
+
+
+#input2-outer {
+  color: black;
+  font-family: Courier;
+  font-size: 12pt;
+  text-align: center;
+}
+
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#input4-outer {
+  color: black;
+  font-family: Courier;
+  font-size: 12pt;
+  text-align: center;
+}
+
+
+.panel_footer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}
+
+
+.slide:hover {
+  cursor: pointer;
+}
+
+.current-slide{
+  border: solid 5px red;
+}
+
+.panel_footer button {
+  border-radius: 0;
+}
+
+.panel_body {
+  padding-top: 20px;
+}
+
+
+#wrapper_input3 img:hover {
+  cursor: pointer;
+}
+
+#back-to {
+  position: fixed;
+  top: 0;
+  right: 0;
+    z-index: 10;
+}
+
+#back-to-edit {
+    color: black;
+    width: 60px;
+    border-radius: 0;
+    margin: 5px 2.5px 5px 5px;
+    /*position: fixed;
+    top: 0;
+    right: 0;
+    */
+    /*border-radius: 0;
+    opacity: 0.3;*/
+}
+
+#back-to-home {
+    color: black;
+    width: 60px;
+    border-radius: 0;
+    margin: 5px 5px 5px 2.5px;
+    /*position: fixed;
+    top: 0;
+    right: 0;
+    */
+    /*border-radius: 0;
+    opacity: 0.3;*/
+}
+

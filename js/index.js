@@ -20,10 +20,17 @@ $(document).ready(function()
 	});
 
 
-	$("#bigbang-img, #to-making-btn").click(function(){
+	$("#bigbang-img, #to-bigbang-btn").click(function(){
 		createNewGift(function(giftID){
 			window.location.href = "Editing/Bigbang.html?mode=editing&giftid=" + giftID;	
-		})
+		},"Bigbang")
+
+	})
+
+	$("#mygirl-img, #to-mygirl-btn").click(function(){
+		createNewGift(function(giftID){
+			window.location.href = "Editing/MyGirl.html?mode=editing&giftid=" + giftID;	
+		}, "MyGirl")
 
 	})
 
@@ -33,8 +40,9 @@ $(document).ready(function()
 
 
 
-	function createNewGift(callback){
+	function createNewGift(callback, templateName){
 		var newGift = {
+			templateName: templateName,
 			inputs: {
 				input1: "",
 				input2: ""

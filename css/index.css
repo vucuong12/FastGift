@@ -42,3 +42,8 @@
 .unavailable:hover {
 	cursor: pointer;
 }
+
+
+.imgpreview:hover, .btnwrapper:hover {
+  cursor: pointer;
+}
