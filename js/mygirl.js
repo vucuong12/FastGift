@@ -12,11 +12,19 @@ $(document).ready(function()
 		$("#img-input-modal").modal("show");
 	})
 
+	function checkImgURL(url) {
+	    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+	}
+
 	$("#img-input-modal .done").click(function(){
-		
 		img1_url = $("#img-input-modal input").val();
+		if (!checkImgURL(img1_url)){
+			alert("Invalid image URL")
+			return;
+		}
 		$("#img-input-modal").modal("hide");
 		$("#wrapper_input3").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+		.css({"border":"none"})
 		$("#wrapper_input3 #output3").attr('src', img1_url).show();
 		$("#wrapper_input3 #input3_img").hide();
 		
@@ -148,6 +156,7 @@ $(document).ready(function()
 				} else if (inputType === "image"){
 					console.log("Preview input6")
 					$("#wrapper_input3").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+					.css({"border":"none"})
 					$("#wrapper_input3 #output3").attr('src', value).show();
 					$("#wrapper_input3 #input3_img").hide();
 					return
@@ -189,6 +198,7 @@ $(document).ready(function()
 			if (hasValue){
 				$("#img-input-modal input").val(value);
 				$("#wrapper_" + inputKey).css({ 'background-color':"rgba(255, 0, 0, 0)" })
+				.css({"border":"none"})
 				$("#wrapper_" + inputKey + " #output3").attr('src', value).show();
 				$("#wrapper_" + inputKey + " #" + inputKey + "_img").hide();
 			}

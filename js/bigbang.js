@@ -15,8 +15,13 @@ $(document).ready(function()
 	$("#img-input-modal .done").click(function(){
 		
 		img1_url = $("#img-input-modal input").val();
+		if (!checkImgURL(img1_url)){
+			alert("Invalid image URL")
+			return;
+		}
 		$("#img-input-modal").modal("hide");
 		$("#wrapper_input6").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+		.css({"border":"none"})
 		$("#wrapper_input6 #output6").attr('src', img1_url).show();
 		$("#wrapper_input6 #input6_img").hide();
 		
@@ -34,9 +39,16 @@ $(document).ready(function()
 	$("#video-input-modal .done").click(function(){
 		
 		video1_url = $("#video-input-modal input").val();
+		
+		if (!checkVideoURL(video1_url)){
+			alert("Invalid video URL")
+			return;
+		}
+		alert(video1_url);
 		$("#video-input-modal").modal("hide");
 		
 		$("#wrapper_input9").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+		.css({"border":"none"})
 		$("#wrapper_input9 source").attr('src', video1_url);
 		$("#wrapper_input9 video").show();
 		$("#wrapper_input9 img").hide();
@@ -141,16 +153,16 @@ $(document).ready(function()
 		var input5 = $("#wrapper_input5");
 		input5.height(newImgHeight * 0.3);
 		input5.width(newImgWidth * 0.3);
-		input5.offset({top: topImg + 0.2 * newImgHeight, left: leftImg + 0.01 * newImgWidth})
+		input5.offset({top: topImg + 0.2 * newImgHeight, left: leftImg + -0.06 * newImgWidth})
 		$("#wrapper_input5 textarea").width(input5.width());
 		$("#wrapper_input5 textarea").height(input5.height());
 
 
 		//Input 6
 		var input6 = $("#wrapper_input6");
-		input6.height(newImgHeight * 0.3);
-		input6.width(newImgWidth * 0.3);
-		input6.offset({top: topImg + 0.05 * newImgHeight, left: leftImg + 0.39 * newImgWidth})
+		input6.height(newImgHeight * 0.5);
+		input6.width(newImgWidth * 0.5);
+		input6.offset({top: topImg + 0.05 * newImgHeight, left: leftImg + 0.27 * newImgWidth})
 
 		//Input 7
 		var input7 = $("#wrapper_input7");
@@ -316,6 +328,23 @@ $(document).ready(function()
 		window.location.href = "../index.html";
 	})
 
+	function IsValidImageUrl(url) {
+
+		$("<img>", {
+		    src: url,
+		    error: function() { alert("Invalid image url"); },
+		    load: function() { alert(url + ': ' + true); }
+		});
+	}
+
+	function checkImgURL(url) {
+	    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+	}
+
+	function checkVideoURL(url) {
+	    return(url.match(/\.(mp4|webm|webm)$/) != null);
+	}
+
 
 	/*INIT*/
 	
@@ -385,6 +414,7 @@ $(document).ready(function()
 			} else {
 				if (inputType === "video") {
 					$("#wrapper_input9").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+					.css({"border":"none"})
 					$("#wrapper_input9 source").attr('src', value);
 					$("#wrapper_input9 video").show();
 					$("#wrapper_input9 img").hide();
@@ -392,6 +422,7 @@ $(document).ready(function()
 				} else if (inputType === "image"){
 					console.log("Preview input6")
 					$("#wrapper_input6").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+					.css({"border":"none"})
 					$("#wrapper_input6 #output6").attr('src', value).show();
 					$("#wrapper_input6 #input6_img").hide();
 					return
@@ -422,7 +453,9 @@ $(document).ready(function()
 		// Editing mode
 		if(inputType === "video") {
 			if (hasValue){
+				$("#video-input-modal input").val(value);
 				$("#wrapper_input9").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+				.css({"border":"none"})
 				$("#wrapper_input9 source").attr('src', value);
 				$("#wrapper_input9 video").show();
 				$("#wrapper_input9 img").hide();
@@ -431,6 +464,7 @@ $(document).ready(function()
 			if (hasValue){
 				$("#img-input-modal input").val(value);
 				$("#wrapper_input6").css({ 'background-color':"rgba(255, 0, 0, 0)" })
+				.css({"border":"none"})
 				$("#wrapper_input6 #output6").attr('src', value).show();
 				$("#wrapper_input6 #input6_img").hide();
 			}

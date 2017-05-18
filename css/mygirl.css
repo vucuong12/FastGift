@@ -176,3 +176,18 @@ button {
     opacity: 0.3;*/
 }
 
+#wrapper_input3 {
+  background-color: #f8ff9c;
+  text-align: center;
+  width: 400px;
+  height: 300px;
+  border: dashed;
+}
+
+#wrapper_input3:hover {
+  cursor: pointer;
+}
+
+#input3_img {
+  margin-top: 92px;
+}
