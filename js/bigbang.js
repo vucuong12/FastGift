@@ -60,6 +60,9 @@ $(document).ready(function()
 
 
 	if ($( "#hand" ).length > 0){
+		$("#hand").mouseover(function(){
+			$(".speech-bubble").hide();
+		});
 		$( "#hand" ).draggable({
 			stop: function( event, ui ) {
 		        var offset = $(this).offset();
@@ -77,13 +80,16 @@ $(document).ready(function()
 		        	console.log("Inside img");
 		        	showSlide(2);
 		        }
-		        
+		        $(".speech-bubble").show();
 			}
 		});
 	}
 	
 
 	if ($( "#needle" ).length > 0){
+		$("#needle").mouseover(function(){
+			$(".speech-bubble").hide();
+		});
 		$( "#needle" ).draggable({
 			stop: function( event, ui ) {
 		        var offset = $(this).offset();
@@ -101,7 +107,7 @@ $(document).ready(function()
 		        	console.log("Inside img");
 		        	showSlide(3);
 		        }
-		        
+		        console.log("speech-bubble bye bye!!");
 			}
 		});
 	}
