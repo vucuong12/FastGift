@@ -46,6 +46,12 @@ button {
 	cursor: pointer;
 }
 
+#bigbang-img {
+	border: 1px;
+	border-color: #e1e5ed;
+	border-style: solid;
+}
+
 .unavailable:hover {
 	cursor: pointer;
 }
