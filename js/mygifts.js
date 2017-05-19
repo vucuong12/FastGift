@@ -1,22 +1,24 @@
 $( document ).ready(function() {
   
-  database.ref("gifts/").once('value', function(snapshot)
+  database.ref("gifts/").orderByChild('lastModified').once('value', function(snapshot)
   {
-    var giftManager = document.getElementById('gift-manager');
-    var giftTemplate = document.getElementById('gift-template');
+    var giftTemplate = $("#gift-template");
     snapshot.forEach(function(childSnapshot)
     {
         //console.log(childSnapshot.val());
-        var gift=giftTemplate.cloneNode(true);
-        gift.id=childSnapshot.key;
+        var gift=giftTemplate.clone();
+        gift.attr('id', childSnapshot.key);
         // for each gift, now we have to edit its gift-name, gift-status, send-link and remove button.
         var receiver = childSnapshot.val().inputs["input1"];
         if(receiver == "") receiver = "somebody";
-        gift.getElementsByClassName("gift-name")[0].innerHTML = "Gift to " + receiver;
+        var timeStamp = -childSnapshot.val()['priority'];
+        if(timeStamp == null) timeStamp = 0;
+        gift.find('.gift-name').html('Gift to ' + receiver);
         var status = childSnapshot.val()["status"];
-        gift.getElementsByClassName("gift-status")[0].innerHTML = status;
-        gift.getElementsByClassName("gift-details")[0].style.backgroundColor = status == "Completed" ? "#5fcff1" : "#cbd1d8";
-        giftManager.appendChild(gift);
+        gift.find('.gift-status').html(status);
+        gift.find('.gift-details').css('background-color', status == "Completed" ? "#5fcff1" : "#cbd1d8");
+        gift.find('.gift-time').html('last modified:  ' + moment(timeStamp).format('LLL'));
+        gift.appendTo('#gift-manager');
     });
   });
 

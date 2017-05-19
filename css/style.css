@@ -207,3 +207,8 @@ input[type="checkbox"] {
 
 .clear { clear: both; }
 
+.gift-time {
+  font-size: 18px;
+  text-align: right;
+  font-style: italic;
+}

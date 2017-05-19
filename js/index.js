@@ -62,7 +62,8 @@ $(document).ready(function()
 				input1: "",
 				input2: ""
 			},
-			status: "Incompleted"
+			status: "Incompleted",
+			priority: -Date.now()
 		}
 
 		var something;
@@ -74,23 +75,7 @@ $(document).ready(function()
 				callback(newGiftKey);	
 			}
 		})
-
 		
-		
-
-		// /*Retrieving*/
-
-		// ref.on("value", gotData, errData);
-
-		// function gotData(data){
-		// 	console.log("gotdata ");
-		// 	console.log(data.val());
-		// }
-
-		// function errData(err){
-		// 	console.log("Error !");
-		// 	console.log(err);
-		// }
 
 	}
 });
