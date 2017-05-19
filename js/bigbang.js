@@ -625,6 +625,7 @@ $(document).ready(function()
 		} else {
 			localGift.status = "Incompleted"
 		}
+		localGift.priority = -Date.now();
 		updates["/gifts/" + giftID] = localGift;
 		return database.ref().update(updates, function(err){
 			window.location.href = "../Preview/Bigbang.html?mode=preview&giftid=" + giftID;	

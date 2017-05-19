@@ -1,6 +1,6 @@
 $( document ).ready(function() {
   
-  database.ref("gifts/").orderByChild('lastModified').once('value', function(snapshot)
+  database.ref("gifts/").orderByChild('priority').once('value', function(snapshot)
   {
     var giftTemplate = $("#gift-template");
     snapshot.forEach(function(childSnapshot)
@@ -12,12 +12,24 @@ $( document ).ready(function() {
         var receiver = childSnapshot.val().inputs["input1"];
         if(receiver == "") receiver = "somebody";
         var timeStamp = -childSnapshot.val()['priority'];
-        if(timeStamp == null) timeStamp = 0;
+        var giftType = childSnapshot.val().templateName;
         gift.find('.gift-name').html('Gift to ' + receiver);
         var status = childSnapshot.val()["status"];
         gift.find('.gift-status').html(status);
         gift.find('.gift-details').css('background-color', status == "Completed" ? "#5fcff1" : "#cbd1d8");
         gift.find('.gift-time').html('last modified:  ' + moment(timeStamp).format('LLL'));
+        gift.attr('data-gifttype', giftType);
+
+        // fixing the image
+        if(giftType == "Bigbang")
+        {
+          gift.find('.gift-image img').attr('src',childSnapshot.val().inputs['input6']);
+        }
+        if(giftType == "MyGirl")
+        {
+          gift.find('.gift-image img').attr('src',childSnapshot.val().inputs['input3']);
+        }
+        
         gift.appendTo('#gift-manager');
     });
   });
@@ -37,12 +49,14 @@ $( document ).ready(function() {
 
   $(document).on( "click",".gift-preview", function(event) {
       var gift = this.parentNode.parentNode.parentNode.parentNode; //really?
-      window.location.href = "Preview/Bigbang.html?mode=preview&giftid=" + gift.id;
+      var _url = "Preview/" + gift.dataset.gifttype + ".html?mode=preview&giftid=" + gift.id;
+      window.location.href = _url;
     });
 
 	$(document).on( "click",".gift-edit", function( event ) {
       var gift = this.parentNode.parentNode.parentNode.parentNode; //really?
-      window.location.href = "Editing/Bigbang.html?mode=editing&giftid=" + gift.id;
+      var _url = "Editing/" + gift.dataset.gifttype + ".html?mode=preview&giftid=" + gift.id;
+      window.location.href = _url;
     });
 
   var selectedGift;
@@ -50,7 +64,8 @@ $( document ).ready(function() {
         selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
         console.log(window.location.href);
         $("#gift-copylink-modal #copy-link-gift-name").html(selectedGift.getElementsByClassName("gift-name")[0].innerHTML);
-        $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + "Preview/Bigbang.html?mode=receiving&giftid=" + selectedGift.id);
+        var _url = "Preview/" + selectedGift.dataset.gifttype + ".html?mode=preview&giftid=" + selectedGift.id;
+        $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + _url);
         
         var giftStatus = selectedGift.getElementsByClassName("gift-status")[0].innerHTML;
         if (giftStatus == "Completed") {
