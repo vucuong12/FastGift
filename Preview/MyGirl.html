@@ -1,0 +1,132 @@
+<!-- 
+  Input: giftID (by parsing URL)
+  Precondition: there has been a corresponding object (consisting relevant variables) stored in Firebase 
+  for this gift
+  Main steps:
+    In the beginning, get that object from Firebase. 
+    While the user edits the gifts, simultaneously update that object in the browser. 
+    When user User press "Save", update that object to Firebase (start simple like this, we can realtime update to Firebase later, or for every 10 seconds, etc.)
+
+ -->
+
+ <!-- 
+  Overall structure of this html file's body
+  <left panel>
+  <main panel>
+    <page 1 shown by default>
+    <page 2 hidden by default>
+    <page 2 hidden by default>
+  -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Fast Gift</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+  
+  <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+  <script type="text/javascript" src="../js/config.js"></script>
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="../css/index.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <link        rel="stylesheet" href="../css/mygirl.css">
+  <script type="text/javascript" src="../js/mygirl.js"></script>
+</head>
+<body>
+  
+  <!-- BODY PANEL1 -->
+    <div class="panel_body" id="outside" style="height: 100%;">
+
+      <!-- <p id="outside-title">
+        Halo halo BABE !
+      </p> -->
+      <div id="wrapper_input1">
+         
+        <p id="input1-outer" style="display: none;margin-top: 10px;">Halo halo BABE !</p>
+        <input id="input1" style="margin-bottom: 20px; width: 400px" placeholder="Your greeting message" type="text">
+      </div>
+
+      <img id="outside-pic" src="http://www.cqsisu.com/data/wallpapers/5/718448.gif">
+
+      <p>
+        <button id="open_card_btn">Come on here babe</button>
+      </p>
+      <!-- FOOTER PANEL1 -->
+      <div id="panel1_footer" class="panel_footer row">
+        <div class="col-xs-6 col-xs-offset-3" style="text-align:center">
+          
+        </div>
+        <div class="col-xs-3" style="text-align: right">
+          <button id="panel1_next" type="button" class="btn btn-info navi-button">Next</button>  
+        </div>
+      </div>
+    </div>
+
+  <!-- BODY PANEL2 -->
+    <div id="inside" class="panel_body" style="height: 100%;">
+
+      <!-- <p id="inside-title">
+        Happy 8-3 to the most beautiful girl in the world !!!
+      </p> -->
+
+      <div id="wrapper_input2">
+         
+        <p id="input2-outer" style="display: none;margin-top: 10px;">Halo halo BABE !</p>
+        <input id="input2" style="margin-bottom: 20px; width: 400px" placeholder="Your message" type="text">
+      </div>
+      
+      <!-- <img id="inside-pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR99wbtT86cx9sLcd-KbYcev0L7y5QEMPocsDv1sUsFGyeXv0gL"> -->
+      <center>
+        <div id="wrapper_input3" style="background-color:rgba(255, 0, 0, 0)">
+          <img id="input3_img" src="../images/add_image.png" style="width: 100px; height: auto" ></img>
+          <!-- <h2 id="input6-outer" style="margin-top: 3px;margin-left: 3px;">+Image</h2> -->
+          <img id="output3" style="display: none; width: 100%; height: auto" ></img>
+        </div>  
+      </center>
+      
+      
+      <!-- <p id="message" style="margin-top: 40px">
+        Chúc em kiếm được thật nhiều tiền với mẻ hàng sắp tới và chóng qua được cái tháng 3 xui xẻo này ! *thơm thơm*
+      </p> -->
+
+      <div id="wrapper_input4">
+         
+        <p id="input4-outer" style="display: none;margin-top: 10px;">Halo halo BABE !</p>
+        <input id="input4" style="margin-top: 20px; width: 400px" placeholder="Your message" type="text">
+      </div>
+
+      
+      <button id="close_card_btn" >Feel it one more time ^^</button>
+      
+      <div id="panel2_footer" class="panel_footer row">
+        <div class="col-xs-3" style="text-align: left">
+          <button id="panel2_prev" type="button" class="btn btn-info navi-button">Prev</button>  
+        </div>
+        
+        <div class="col-xs-3 col-xs-offset-6" style="text-align: right">
+          <button id="panel2_save" type="button" class="btn btn-success navi-button">Save</button>  
+        </div>
+      </div>
+      
+    </div>
+    <div id="back-to">
+        <button id="back-to-edit" type="button" class="btn btn-info">Edit</button>
+        <button id="back-to-home" type="button" class="btn btn-info">Home</button>
+    </div>
+
+
+  
+  
+
+</body>
+</html>
