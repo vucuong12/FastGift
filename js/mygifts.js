@@ -13,12 +13,14 @@ $( document ).ready(function() {
         if(receiver == "") receiver = "somebody";
         var timeStamp = -childSnapshot.val()['priority'];
         var giftType = childSnapshot.val().templateName;
-        gift.find('.gift-name').html('Gift to ' + receiver);
+        // gift.find('.gift-name').html('Gift to ' + receiver);
+        gift.find('.gift-name').html(childSnapshot.val().giftTitle);
         var status = childSnapshot.val()["status"];
-        gift.find('.gift-status').html(status);
+        // gift.find('.gift-status').html(status);
         gift.find('.gift-details').css('background-color', status == "Completed" ? "#5fcff1" : "#cbd1d8");
         gift.find('.gift-time').html('last modified:  ' + moment(timeStamp).format('LLL'));
         gift.attr('data-gifttype', giftType);
+        gift.attr('data-wholegift', JSON.stringify(childSnapshot.val()));
 
         // fixing the image
         if(giftType == "Bigbang")
@@ -32,20 +34,68 @@ $( document ).ready(function() {
         
         gift.appendTo('#gift-manager');
     });
+    giftTemplate.remove();
+    $('#gift-manager .one-gift').hide();
+    $('#gift-manager .one-gift').slice((1-1)*5, 1*5).show();
     $(".pagination").appendTo('#gift-manager');
+    $( "#gift-manager .one-gift" ).each(function( index ) {
+      checkPercentCompleted(this);
+    });
   });
+
+  function checkPercentCompleted(gift){
+    console.log(gift.dataset);
+    var localGift = JSON.parse(gift.dataset.wholegift);
+    var inputs = localGift.inputs;
+    var completed = 0;
+    var tolalInputs = 0;
+    if (localGift.templateName === "MyGirl") {
+      tolalInputs = 4;
+    } else if (localGift.templateName === "Bigbang"){
+      tolalInputs = 7;
+    }
+    var inputKeys = Object.keys(inputs);
+    
+    for (var index = 0; index < inputKeys.length; index++){
+      if (inputs[inputKeys[index]] == undefined || inputs[inputKeys[index]] == ""){
+      } else {
+        completed++;
+      }
+    }
+    var percent = Math.round(100.0 * completed / tolalInputs);
+
+    $(gift).find(".progress-bar")
+    .attr("aria-valuenow",percent)
+    .css({"width": percent + "%"})
+    .text(percent + "%")
+    if (percent === 100){
+      $(gift).find(".progress-bar").css({"background-color":"#4CAF50"}).html("Completed")
+    }
+  }
 
   //filter feature
   $('[name="status-option"]').click(function()
   {
     var filterType = this.id.split("-")[1];
     gifts = document.getElementsByClassName("one-gift");
-    for(var i=1; i<gifts.length; i++) //start at 1 because we excluding the template
+    for(var i=0; i<gifts.length; i++) //start at 1 because we excluding the template
     {
-      var giftStatus = gifts[i].getElementsByClassName("gift-status")[0].innerHTML;
+      var giftStatus = gifts[i].getElementsByClassName("progress-bar")[0].innerHTML;
+      console.log(giftStatus);
+      if (giftStatus !== "Completed") giftStatus = "Incompleted";
       if(giftStatus == filterType || filterType == "All") gifts[i].style.display = "block";
       else gifts[i].style.display = "none";
     }
+  });
+
+  $('#filter-christmas-topic').click(function()
+  {
+    $(".one-gift").hide();
+  });
+
+  $('#filter-birthday-topic, #filter-all-topic').click(function()
+  {
+    $(".one-gift").show();
   });
 
   $(document).on( "click",".gift-preview", function(event) {
@@ -56,7 +106,7 @@ $( document ).ready(function() {
 
 	$(document).on( "click",".gift-edit", function( event ) {
       var gift = this.parentNode.parentNode.parentNode.parentNode; //really?
-      var _url = "Editing/" + gift.dataset.gifttype + ".html?mode=preview&giftid=" + gift.id;
+      var _url = "Editing/" + gift.dataset.gifttype + ".html?mode=editing&giftid=" + gift.id;
       window.location.href = _url;
     });
 
@@ -65,7 +115,7 @@ $( document ).ready(function() {
         selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
         console.log(window.location.href);
         $("#gift-copylink-modal #copy-link-gift-name").html(selectedGift.getElementsByClassName("gift-name")[0].innerHTML);
-        var _url = "Preview/" + selectedGift.dataset.gifttype + ".html?mode=preview&giftid=" + selectedGift.id;
+        var _url = "Preview/" + selectedGift.dataset.gifttype + ".html?mode=receiving&giftid=" + selectedGift.id;
         $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + _url);
         
         var giftStatus = selectedGift.getElementsByClassName("gift-status")[0].innerHTML;
@@ -120,4 +170,38 @@ $( document ).ready(function() {
     if(page != '...') $('#gift-manager .one-gift').slice((page-1)*5, page*5).show();
     else $('#gift-manager .one-gift').slice(20).show();
   });
+
+
+  $(document).on("focusout", "#giftname", function(e){
+    var localGift = JSON.parse(this.parentNode.dataset.wholegift); //really?
+    var giftID = this.parentNode.id;
+    
+    if ($(this).html() == ""){
+          $(this).html("Untitled gift")
+        }
+        var newTitle = $.trim($(this).text());
+
+        localGift.giftTitle = newTitle;
+        sendToFirebase(localGift, giftID);
+  })
+
+  $(document).on("keypress", "#giftname", function(e){ 
+    if (e.which === 13) {
+          e.preventDefault();
+          $(this).blur();   
+      }
+  })
+
+  function sendToFirebase(localGift, giftID) {
+    var updates = {};
+    localGift.priority = -Date.now();
+    updates["/gifts/" + giftID] = localGift;
+    return database.ref().update(updates, function(err){
+
+     
+      
+      
+    });
+    
+  }
 })

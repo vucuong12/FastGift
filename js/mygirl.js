@@ -6,6 +6,7 @@ var img1_url;
 var mode;
 var curSlideNumber;
 var totalSlide = 2;
+var tolalInputs = 4;
 $(document).ready(function()
 {
 	init();
@@ -173,6 +174,7 @@ $(document).ready(function()
 			console.log(localGift.inputs.input1);
 			displayCurrentStatus(function(){
 				$("#gift-name-edit").html(localGift.giftTitle);
+				checkPercentCompleted();
 				showSlide(1);
 
 			});
@@ -345,15 +347,35 @@ $(document).ready(function()
 		// return database.ref().update(updates);
 	}
 
+	function checkPercentCompleted(){
+		var inputs = localGift.inputs;
+		var completed = 0;
+		for (var index = 1; index <= tolalInputs; index++){
+			if (inputs["input"+index] == undefined || inputs["input"+index] == ""){
+
+			} else {
+				completed++;
+			}
+		}
+		var percent = Math.round(100.0 * completed / tolalInputs);
+
+		$(".progress-bar")
+		.attr("aria-valuenow",percent)
+		.css({"width": percent + "%"})
+		.text(percent + "%")
+		if (percent === 100){
+			$(".progress-bar").css({"background-color":"#4CAF50"}).html("Completed")
+		}
+		return (percent === 100);
+	}
+
 	function uploadGiftToFibrebase(redirect = true){
-	
-		isCompleted = true;
 		updateEachInput("input1", "text");
 		updateEachInput("input2", "text");
 		updateEachInput("input3", "image");
 		updateEachInput("input4", "text");
 
-
+		isCompleted = checkPercentCompleted();
 		sendToFirebase(redirect);
 	}
 

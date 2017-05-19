@@ -6,6 +6,7 @@ var img1_url = "";
 var video1_url = "";
 var curSlideNumber;
 var totalSlide = 3;
+var tolalInputs = 7;
 $(document).ready(function()
 {
 	init();
@@ -416,6 +417,7 @@ $(document).ready(function()
 
 
 	function autoUpdate(){
+		if (/*mode != "editing"*/true) return;
 		setInterval(function(){
 			uploadGiftToFibrebase(false);
 		}, 10000)
@@ -451,6 +453,7 @@ $(document).ready(function()
 			localGift = snapshot.val();
 			displayCurrentStatus(function(){
 				$("#gift-name-edit").html(localGift.giftTitle);
+				checkPercentCompleted();
 				showSlide(1);
 
 			});
@@ -652,10 +655,31 @@ $(document).ready(function()
 	
 	showInputFieldsAfterClick();
 
+	function checkPercentCompleted(){
+		var inputs = localGift.inputs;
+		var completed = 0;
+		var inputKeys = Object.keys(inputs);
+		
+		for (var index = 0; index < inputKeys.length; index++){
+			if (inputs[inputKeys[index]] == undefined || inputs[inputKeys[index]] == ""){
+			} else {
+				completed++;
+			}
+		}
+		var percent = Math.round(100.0 * completed / tolalInputs);
+		console.log("Completed " + completed);
+		$(".progress-bar")
+		.attr("aria-valuenow",percent)
+		.css({"width": percent + "%"})
+		.text(percent + "%")
+		if (percent === 100){
+			$(".progress-bar").css({"background-color":"#4CAF50"}).html("Completed")
+		}
+		return (percent === 100);
+	}
 
 
 	function uploadGiftToFibrebase(redirect = true){
-		isCompleted = true;
 		updateEachInput("input1", "text");
 		updateEachInput("input2", "text");
 		updateEachInput("input5", "textarea");
@@ -663,6 +687,7 @@ $(document).ready(function()
 		updateEachInput("input7", "textarea");
 		updateEachInput("input8", "text");
 		updateEachInput("input9", "video");
+		isCompleted = checkPercentCompleted();
 		sendToFirebase(redirect);
 	}
 

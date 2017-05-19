@@ -16,3 +16,7 @@ button, h2, h3, input, tt, span {
 	margin-left: 40%;
 }
 
+#giftname{
+    white-space: nowrap;
+  overflow: hidden;
+}
