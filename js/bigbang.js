@@ -4,6 +4,8 @@ var isCompleted = true;
 var mode = "";
 var img1_url = "";
 var video1_url = "";
+var curSlideNumber;
+var totalSlide = 3;
 $(document).ready(function()
 {
 	init();
@@ -60,6 +62,9 @@ $(document).ready(function()
 
 
 	if ($( "#hand" ).length > 0){
+		$("#hand").mouseover(function(){
+			$(".speech-bubble").hide();
+		});
 		$( "#hand" ).draggable({
 			stop: function( event, ui ) {
 		        var offset = $(this).offset();
@@ -77,13 +82,16 @@ $(document).ready(function()
 		        	console.log("Inside img");
 		        	showSlide(2);
 		        }
-		        
+		        $(".speech-bubble").show();
 			}
 		});
 	}
 	
 
 	if ($( "#needle" ).length > 0){
+		$("#needle").mouseover(function(){
+			$(".speech-bubble").hide();
+		});
 		$( "#needle" ).draggable({
 			stop: function( event, ui ) {
 		        var offset = $(this).offset();
@@ -101,7 +109,7 @@ $(document).ready(function()
 		        	console.log("Inside img");
 		        	showSlide(3);
 		        }
-		        
+		        console.log("speech-bubble bye bye!!");
 			}
 		});
 	}
@@ -243,11 +251,47 @@ $(document).ready(function()
 		
 	})
 
+	$("#panel_next").click(function(){
+		if (curSlideNumber < totalSlide){
+			showSlide(curSlideNumber + 1);	
+		} else {
+			uploadGiftToFibrebase();
+		}
+		
+	})
+
+	$("#panel_prev").click(function(){
+		showSlide(curSlideNumber - 1);	
+		
+	})
+
+	$("#save-to-cloud-btn").click(function(){
+		uploadGiftToFibrebase(false);
+	})
+
+	$("#preview-btn").click(function(){
+		uploadGiftToFibrebase();
+	})
+
+
+
 	
 
 	function showSlide(slideNumber, totalSlide = 3){
+		curSlideNumber = slideNumber;
 		if ($('#panel' + slideNumber).css('display') != 'none') {
 			return;
+		}
+
+		if (slideNumber === 1){
+			$("#panel_prev").hide();
+			$("#panel_next").removeClass("btn-success").addClass("btn-info").html("Next").show();
+		} else if (slideNumber === totalSlide) {
+			$("#panel_prev").show();
+			$("#panel_next").removeClass("btn-info").addClass("btn-success").html("Save & Preview").show();
+		} else {
+			$("#panel_prev").show();
+			$("#panel_next").removeClass("btn-success").addClass("btn-info").html("Next").show();
 		}
 		if (mode == "preview" || mode == "receiving"){
 			$(".navi-button").hide();
@@ -350,7 +394,7 @@ $(document).ready(function()
         	$(this).html("Untitled gift")
         }
         var newTitle = $.trim($(this).text());
-        localGift.title = newTitle;
+        localGift.giftTitle = newTitle;
         sendToFirebase(false);
 	})
 
@@ -371,6 +415,12 @@ $(document).ready(function()
 	});
 
 
+	function autoUpdate(){
+		setInterval(function(){
+			uploadGiftToFibrebase(false);
+		}, 10000)
+	}
+
 	/*INIT*/
 	
 	function init(){
@@ -388,6 +438,8 @@ $(document).ready(function()
 		giftID = getParameterByName("giftid");
 		mode = getParameterByName("mode");
 
+
+
 		if (mode === "receiving"){
 			$("#back-to-edit").hide();
 			$("#back-to-home").hide();
@@ -398,10 +450,13 @@ $(document).ready(function()
 		database.ref("gifts/" + giftID).once("value").then(function(snapshot){
 			localGift = snapshot.val();
 			displayCurrentStatus(function(){
+				$("#gift-name-edit").html(localGift.giftTitle);
 				showSlide(1);
 
 			});
 		});
+
+		autoUpdate();
 		
 		
 	}
@@ -419,7 +474,7 @@ $(document).ready(function()
 					if (inputType == "text"){
 						$("#wrapper_" + inputKey + " h2").hide();
 						$("#wrapper_" + inputKey + " input").show();
-						$("#wrapper_" + inputKey).css({"background-color":"#fff"});
+						$("#wrapper_" + inputKey).css({"background-color":"#fff; font-family: 'Noto Sans', sans-serif;"});
 						$("#wrapper_" + inputKey + " input").attr("placeholder", defaultValue);
 					}
 
@@ -430,7 +485,7 @@ $(document).ready(function()
 						$("#wrapper_" + inputKey + " textarea").show();
 						$("#wrapper_" + inputKey + " textarea").focus();
 						$("#wrapper_" + inputKey + " textarea").attr("placeholder", defaultValue);
-						$("#wrapper_" + inputKey).css({"background-color":"#fff"});
+						$("#wrapper_" + inputKey).css({"background-color":"#fff; font-family: 'Noto Sans', sans-serif;"});
 
 					}
 				}
@@ -599,7 +654,7 @@ $(document).ready(function()
 
 
 
-	function uploadGiftToFibrebase(){
+	function uploadGiftToFibrebase(redirect = true){
 		isCompleted = true;
 		updateEachInput("input1", "text");
 		updateEachInput("input2", "text");
@@ -608,7 +663,7 @@ $(document).ready(function()
 		updateEachInput("input7", "textarea");
 		updateEachInput("input8", "text");
 		updateEachInput("input9", "video");
-		sendToFirebase();
+		sendToFirebase(redirect);
 	}
 
 	function updateEachInput(inputKey, inputType){
@@ -648,8 +703,12 @@ $(document).ready(function()
 		} else {
 			localGift.status = "Incompleted"
 		}
+		localGift.priority = -Date.now();
+		$("#save-to-cloud-btn").css({"color":"#5bc0de"})
 		updates["/gifts/" + giftID] = localGift;
 		return database.ref().update(updates, function(err){
+
+			$("#save-to-cloud-btn").css({"color":"#000"})
 			if (redirect){
 				window.location.href = "../Preview/Bigbang.html?mode=preview&giftid=" + giftID;		
 			}

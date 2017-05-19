@@ -4,6 +4,8 @@ var giftID;
 var isCompleted;
 var img1_url;
 var mode;
+var curSlideNumber;
+var totalSlide = 2;
 $(document).ready(function()
 {
 	init();
@@ -43,10 +45,43 @@ $(document).ready(function()
 		showSlide(2);
 	})
 
+	$("#panel_next").click(function(){
+		if (curSlideNumber < totalSlide){
+			showSlide(curSlideNumber + 1);	
+		} else {
+			uploadGiftToFibrebase();
+		}
+		
+	})
+
+	$("#panel_prev").click(function(){
+		showSlide(curSlideNumber - 1);	
+		
+	})
+
+	$("#save-to-cloud-btn").click(function(){
+		uploadGiftToFibrebase(false);
+	})
+
+	$("#preview-btn").click(function(){
+		uploadGiftToFibrebase();
+	})
 
 
 
-	function showSlide(slideNumber, totalSlide = 3){
+	function showSlide(slideNumber, totalSlide = 2){
+		curSlideNumber = slideNumber;
+		
+		if (slideNumber === 1){
+			$("#panel_prev").hide();
+			$("#panel_next").removeClass("btn-success").addClass("btn-info").html("Next").show();
+		} else if (slideNumber === totalSlide) {
+			$("#panel_prev").show();
+			$("#panel_next").removeClass("btn-info").addClass("btn-success").html("Save & Preview").show();
+		} else {
+			$("#panel_prev").show();
+			$("#panel_next").removeClass("btn-success").addClass("btn-info").html("Next").show();
+		}
 		// if ($('#panel' + slideNumber).css('display') != 'none') {
 		// 	return;
 		// }
@@ -86,6 +121,31 @@ $(document).ready(function()
 		window.location.href = "../index.html";
 	})
 
+	$("#gift-name-edit").focusout(function(e){
+		if ($(this).html() == ""){
+        	$(this).html("Untitled gift")
+        }
+        var newTitle = $.trim($(this).text());
+        localGift.giftTitle = newTitle;
+        sendToFirebase(false);
+	})
+
+	$("#gift-name-edit").keypress(function(e){ 
+		if (e.which === 13) {
+	        e.preventDefault();
+	        
+	        $(this).blur();
+	        
+	    }
+
+		// console.log(e.which);
+		// if (e.which != 13){
+		// 	console.log("aa")
+		// }
+		
+		// return e.which != 13; 
+	});
+
 	function init() {
 
 		/*0. Get mode*/
@@ -103,6 +163,8 @@ $(document).ready(function()
 			$("#back-to-edit").hide();
 			$("#back-to-home").hide();
 		}
+		
+		
 
 		/*2. Get gift from firebase*/
 		database.ref("gifts/" + giftID).once("value").then(function(snapshot){
@@ -110,6 +172,7 @@ $(document).ready(function()
 			console.log("Hi: " + localGift);
 			console.log(localGift.inputs.input1);
 			displayCurrentStatus(function(){
+				$("#gift-name-edit").html(localGift.giftTitle);
 				showSlide(1);
 
 			});
@@ -282,7 +345,7 @@ $(document).ready(function()
 		// return database.ref().update(updates);
 	}
 
-	function uploadGiftToFibrebase(){
+	function uploadGiftToFibrebase(redirect = true){
 	
 		isCompleted = true;
 		updateEachInput("input1", "text");
@@ -291,19 +354,27 @@ $(document).ready(function()
 		updateEachInput("input4", "text");
 
 
-		sendToFirebase();
+		sendToFirebase(redirect);
 	}
 
-	function sendToFirebase() {
+	function sendToFirebase(redirect) {
 		var updates = {};
 		if (isCompleted){
 			localGift.status = "Completed"
 		} else {
 			localGift.status = "Incompleted"
 		}
+		localGift.priority = -Date.now();
 		updates["/gifts/" + giftID] = localGift;
+		$("#save-to-cloud-btn").css({"color":"#5bc0de"})
+		console.log("Send");
 		return database.ref().update(updates, function(err){
-			window.location.href = "../Preview/MyGirl.html?mode=preview&giftid=" + giftID;	
+			console.log("Done");
+			$("#save-to-cloud-btn").css({"color":"#000"})
+			if (redirect){
+				window.location.href = "../Preview/MyGirl.html?mode=preview&giftid=" + giftID;		
+			}
+			
 		});
 		
 	}

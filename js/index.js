@@ -58,6 +58,7 @@ $(document).ready(function()
 	function createNewGift(callback, templateName){
 		var newGift = {
 			templateName: templateName,
+			giftTitle: "Untitled gift",
 			inputs: {
 				input1: "",
 				input2: ""

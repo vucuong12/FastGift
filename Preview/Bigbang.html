@@ -34,13 +34,12 @@
   <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
   <script type="text/javascript" src="../js/config.js"></script>
 
-  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Oswald|Raleway|Titillium+Web" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
   <link href="../css/index.css" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-  <link        rel="stylesheet" href="../css/bigbang.css">
+  <link rel="stylesheet" href="../css/bigbang.css">
   <script type="text/javascript" src="../js/bigbang.js"></script>
 </head>
 <body>
@@ -53,8 +52,7 @@
       <div id="panel1" class="gift-panel">
         <!-- HEADER PANEL 1 -->
         <div id="panel1_header" class="panel_header row">
-          <i id="music" class="material-icons col-xs-3">music_note</i>
-          
+          <div class="col-xs-3"></div>
           <div class="col-xs-6 header_mid" style="text-align: center;">
             <div><h1>HAPPY BIRTHDAY</h1></div>
             <div id="wrapper_input1" class="wrapper_input">
@@ -75,12 +73,12 @@
           <div class="col-xs-6 col-xs-offset-3" style="text-align:center">
             <div id="wrapper_input2" class="wrapper_input">
              
-              <h2 id="input2-outer" style="margin-top: 10px;">+Text</h2>
+              <h2 id="input2-outer" style="margin-top: 10px;display: none">+Text</h2>
               <input id="input2" style="display: none" type="text" name="fname">
             </div>
           </div>
           <div class="col-xs-3" style="text-align: right">
-            <button id="panel1_next" class="navi-button" type="button" class="btn btn-info">Next</button>  
+            <button id="panel1_next" class="navi-button" type="button" class="btn btn-info" style="display: none">Next</button>  
           </div>
         </div>
       </div>
@@ -89,7 +87,7 @@
       <div id="panel2" class="gift-panel">
         <!-- HEADER PANEL 2 -->
         <div id="panel2_header" class="panel_header">
-          <i id="music" class="material-icons">music_note</i>
+          <!-- <i id="music" class="material-icons">music_note</i> -->
           <div class="clear"></div>
         </div>
 
@@ -139,7 +137,7 @@
       <div id="panel3" class="gift-panel">
         <!-- HEADER PANEL 3 -->
         <div id="panel3_header" class="panel_header">    
-          <i id="music" class="material-icons">music_note</i>    
+          <!-- <i id="music" class="material-icons">music_note</i>     -->
         </div>
 
         <!-- BODY PANEL 3 -->
@@ -177,7 +175,7 @@
       <button id="back-to-edit" type="button" class="btn btn-info">Edit</button>
       <button id="back-to-home" type="button" class="btn btn-info">Home</button>
   </div>
-  
+  <div class="speech-bubble" style="position: fixed; top: 220px; right: 90px"><tt><strong style="color: white;">Drag me!</strong></tt></div>
   <img id="hand"  class="blink_me" style="display: none; position: fixed; top: 300px; right: 300px" src="../images/hand.png">
   <img id="needle" class="blink_me"  style="display: none; position: fixed; top: 300px; right: 300px" src="../images/needle.png">
 

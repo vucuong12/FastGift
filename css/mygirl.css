@@ -3,9 +3,9 @@
 }
 
 #left_toolbar {
-  border-style: solid;
+  /*border-style: solid;
   border-right: 0
-  border-right: thick double #ff0000;
+  border-right: thick double #ff0000;*/
 }
 
 #center_board {
@@ -197,4 +197,43 @@ button {
   height: 31px;
   margin-top: 11px;
   margin-left: 11px;
+}
+
+#dropdown-icon {
+      width: auto;
+    height: 31px;
+    margin-top: -18px;
+    margin-left: 11px;
+}
+
+#gift-name {
+  /*width: auto;
+  height: 31px;*/
+  margin-top: 11px;
+  margin-left: 11px;
+}
+
+#gift-name-edit{
+    white-space: nowrap;
+  overflow: hidden;
+}
+
+#center_board {
+  border-left: solid 1px ;
+}
+
+#panel_next, #panel_prev {
+  border-radius: 0;
+}
+
+#save-to-cloud-btn:hover{
+  cursor: pointer;
+}
+
+#save-to-cloud-btn, #preview-btn {
+  display: inline-block;
+}
+
+#preview-btn:hover {
+  cursor: pointer;
 }

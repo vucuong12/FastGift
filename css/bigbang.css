@@ -1,7 +1,7 @@
 #left_toolbar {
-  border-style: solid;
-  border-right: 0
-  border-right: thick double #ff0000;
+  /*border: solid 1px;*/
+  /*border-right: solid 1px;*/
+  height: 90.18vh;
 }
 
 #center_board {
@@ -21,11 +21,14 @@
   border: solid 5px red;
 }
 
+#navigation_bar a {
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: bold;
+}
 
-
-
-
-
+button, h1, h2, h3, input, tt, span, strong {
+  font-family: 'Noto Sans', sans-serif;
+}
 
 i#music {
     font-size: 63px;
@@ -252,6 +255,35 @@ textarea {
   cursor: pointer;
 }
 
+.speech-bubble {
+      background-color: #5fcff1;
+      border: 3px solid #54d3f9;
+      border-radius: 5px;
+      width: 150px;
+      text-align: center;
+      padding: 10px;
+      position: relative;
+      margin: 0 0 20px;
+  }
+.speech-bubble:before {
+    border-color: #54d3f9 transparent transparent transparent;
+    border-width: 8px 8px 0px 8px;
+    border-style: dotted;
+    position: absolute;
+    left: 9px;
+    bottom: -8px;
+    content:'';
+}
+.speech-bubble:after {
+    border-color: #5fcff1 transparent;
+    border-style: dotted;
+    border-width: 7px 7px 0px;
+    bottom: -7px;
+    content:'';
+    position: absolute;
+    left: 10px;
+}
+
 #wrapper_input6:hover {
   cursor: pointer;
 }
@@ -306,4 +338,24 @@ textarea {
 #gift-name-edit{
     white-space: nowrap;
   overflow: hidden;
+}
+
+#center_board {
+  border-left: solid 1px ;
+}
+
+#panel_next, #panel_prev {
+  border-radius: 0;
+}
+
+#save-to-cloud-btn:hover{
+  cursor: pointer;
+}
+
+#save-to-cloud-btn, #preview-btn {
+  display: inline-block;
+}
+
+#preview-btn:hover {
+  cursor: pointer;
 }
