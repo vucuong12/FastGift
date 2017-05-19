@@ -1,0 +1,8 @@
+#navigation_bar a, a {
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: bold;
+}
+
+button, h1, h2, h3, input, tt, span, strong, p {
+  font-family: 'Noto Sans', sans-serif;
+}
