@@ -12,9 +12,6 @@ $( document ).ready(function() {
         var receiver = childSnapshot.val().inputs["input1"];
         if(receiver == "") receiver = "somebody";
         var timeStamp = -childSnapshot.val()['priority'];
-        console.log(childSnapshot.key);
-        console.log(timeStamp);
-        console.log(moment(timeStamp).format('L'));
         var giftType = childSnapshot.val().templateName;
         gift.find('.gift-name').html('Gift to ' + receiver);
         var status = childSnapshot.val()["status"];
@@ -35,6 +32,7 @@ $( document ).ready(function() {
         
         gift.appendTo('#gift-manager');
     });
+    $(".pagination").appendTo('#gift-manager');
   });
 
   //filter feature
@@ -112,5 +110,14 @@ $( document ).ready(function() {
       hideAnimation: 'slideUp',
     });
 
-  })
+  });
+
+  $(".page-selector").click(function(e){
+    e.preventDefault();
+    var page = $(this).find('a').html();
+    console.log($('.gift-manager.one-gift'));
+    $('#gift-manager .one-gift').hide();
+    if(page != '...') $('#gift-manager .one-gift').slice((page-1)*10, page*10).show();
+    else $('#gift-manager .one-gift').slice(40).show();
+  });
 })
