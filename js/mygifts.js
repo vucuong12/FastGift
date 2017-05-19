@@ -12,6 +12,9 @@ $( document ).ready(function() {
         var receiver = childSnapshot.val().inputs["input1"];
         if(receiver == "") receiver = "somebody";
         var timeStamp = -childSnapshot.val()['priority'];
+        console.log(childSnapshot.key);
+        console.log(timeStamp);
+        console.log(moment(timeStamp).format('L'));
         var giftType = childSnapshot.val().templateName;
         gift.find('.gift-name').html('Gift to ' + receiver);
         var status = childSnapshot.val()["status"];
