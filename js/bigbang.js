@@ -402,7 +402,7 @@ $(document).ready(function()
 					if (inputType == "text"){
 						$("#wrapper_" + inputKey + " h2").hide();
 						$("#wrapper_" + inputKey + " input").show();
-						$("#wrapper_" + inputKey).css({"background-color":"#fff"});
+						$("#wrapper_" + inputKey).css({"background-color":"#fff; font-family: 'Noto Sans', sans-serif;"});
 						$("#wrapper_" + inputKey + " input").attr("placeholder", defaultValue);
 					}
 
@@ -413,7 +413,7 @@ $(document).ready(function()
 						$("#wrapper_" + inputKey + " textarea").show();
 						$("#wrapper_" + inputKey + " textarea").focus();
 						$("#wrapper_" + inputKey + " textarea").attr("placeholder", defaultValue);
-						$("#wrapper_" + inputKey).css({"background-color":"#fff"});
+						$("#wrapper_" + inputKey).css({"background-color":"#fff; font-family: 'Noto Sans', sans-serif;"});
 
 					}
 				}
