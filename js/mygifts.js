@@ -117,7 +117,7 @@ $( document ).ready(function() {
     var page = $(this).find('a').html();
     console.log($('.gift-manager.one-gift'));
     $('#gift-manager .one-gift').hide();
-    if(page != '...') $('#gift-manager .one-gift').slice((page-1)*10, page*10).show();
-    else $('#gift-manager .one-gift').slice(40).show();
+    if(page != '...') $('#gift-manager .one-gift').slice((page-1)*5, page*5).show();
+    else $('#gift-manager .one-gift').slice(20).show();
   });
 })
