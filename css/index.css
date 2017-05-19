@@ -17,9 +17,16 @@
 {
 	text-align: center;
 }
-#birthdayPreview
-{
+
+#navigation_bar a {
+	font-family: 'Noto Sans', sans-serif;
+	font-weight: bold;
 }
+
+button {
+	font-family: 'Noto Sans', sans-serif;
+}
+
 #anniversaryPreview
 {
 	display: none;
