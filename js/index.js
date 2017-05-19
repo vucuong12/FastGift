@@ -1,19 +1,34 @@
+function setBtnSecondary()
+{
+	$("#birthdayCategory").toggleClass('btn-primary', false);
+	$("#birthdayCategory").toggleClass('btn-secondary', true);
+	$("#anniversaryCategory").toggleClass('btn-primary', false);
+	$("#anniversaryCategory").toggleClass('btn-secondary', true);
+	$("#valentineCategory").toggleClass('btn-primary', false);
+	$("#valentineCategory").toggleClass('btn-secondary', true);
+}
 $(document).ready(function()
 {
 	$("#birthdayCategory").click(function()
 	{
+		setBtnSecondary();
+		$(this).toggleClass('btn-primary');
 		$("#birthdayPreview").show();
 		$("#anniversaryPreview").hide();
 		$("#valentinePreview").hide();
 	});
 	$("#anniversaryCategory").click(function()
 	{
+		setBtnSecondary();
+		$(this).toggleClass('btn-primary');
 		$("#birthdayPreview").hide();
 		$("#anniversaryPreview").show();
 		$("#valentinePreview").hide();
 	});
 	$("#valentineCategory").click(function()
 	{
+		setBtnSecondary();
+		$(this).toggleClass('btn-primary');
 		$("#birthdayPreview").hide();
 		$("#anniversaryPreview").hide();
 		$("#valentinePreview").show();
