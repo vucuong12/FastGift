@@ -44,23 +44,29 @@
 </head>
 <body>
   <div id="navigation_bar" class="row">
-      <a href="../index.html" class="col-xs-4">
-        <img src="../images/logo.png" style="width:85px;height:49px;">
-      </a>
+      
+      <div class="dropdown1 col-xs-4" style="display: inline-block;cursor: pointer;">
+        
+        <img id="dropdown-icon" class="dropdown-toggle" data-toggle="dropdown" src="../images/dropdown.png">
+        <ul class="dropdown-menu">
+          <li><a href="../index.html">Go to Home</a></li>
+          <li><a href="../mygifts.html">Go to My Gifts</a></li>
+          <li><a href="../mygifts.html">About</a></li>
+        </ul>
+      </div>
       <div class="col-xs-4">
         <center class="nav-option">
-          <a style="margin-right : 10px" href="../index.html">Home</a>
-          <a style="margin-left : 10px" href="../mygifts.html">My Gifts</a>  
+              
         </center>
         
       </div>
       <div class="col-xs-4 text-right">
-        <div class="nav-option" style="margin-right: 10px">
+        <div class="nav-option" style="margin-right: 10px;">
           <a href="">Logout</a>  
         </div>
         
       </div>
-    </div>
+  </div>
   <div class="container-fluid">
     <div id="left_toolbar" class="col-xs-3" >
       <div id="slide1" class="slide">

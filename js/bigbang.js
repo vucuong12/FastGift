@@ -345,6 +345,31 @@ $(document).ready(function()
 	    return(url.match(/\.(mp4|webm|webm)$/) != null);
 	}
 
+	$("#gift-name-edit").focusout(function(e){
+		if ($(this).html() == ""){
+        	$(this).html("Untitled gift")
+        }
+        var newTitle = $.trim($(this).text());
+        localGift.title = newTitle;
+        sendToFirebase(false);
+	})
+
+	$("#gift-name-edit").keypress(function(e){ 
+		if (e.which === 13) {
+	        e.preventDefault();
+	        
+	        $(this).blur();
+	        
+	    }
+
+		// console.log(e.which);
+		// if (e.which != 13){
+		// 	console.log("aa")
+		// }
+		
+		// return e.which != 13; 
+	});
+
 
 	/*INIT*/
 	
@@ -372,8 +397,6 @@ $(document).ready(function()
 		/*2. Get gift from firebase*/
 		database.ref("gifts/" + giftID).once("value").then(function(snapshot){
 			localGift = snapshot.val();
-			console.log("Hi: " + localGift);
-			console.log(localGift.inputs.input1);
 			displayCurrentStatus(function(){
 				showSlide(1);
 
@@ -618,7 +641,7 @@ $(document).ready(function()
 		// return database.ref().update(updates);
 	}
 
-	function sendToFirebase() {
+	function sendToFirebase(redirect = true) {
 		var updates = {};
 		if (isCompleted){
 			localGift.status = "Completed"
@@ -627,7 +650,10 @@ $(document).ready(function()
 		}
 		updates["/gifts/" + giftID] = localGift;
 		return database.ref().update(updates, function(err){
-			window.location.href = "../Preview/Bigbang.html?mode=preview&giftid=" + giftID;	
+			if (redirect){
+				window.location.href = "../Preview/Bigbang.html?mode=preview&giftid=" + giftID;		
+			}
+			
 		});
 		
 	}

@@ -288,3 +288,22 @@ textarea {
   width: auto;
   margin-top: 40px;
 }
+
+#dropdown-icon {
+      width: auto;
+    height: 31px;
+    margin-top: -18px;
+    margin-left: 11px;
+}
+
+#gift-name {
+  /*width: auto;
+  height: 31px;*/
+  margin-top: 11px;
+  margin-left: 11px;
+}
+
+#gift-name-edit{
+    white-space: nowrap;
+  overflow: hidden;
+}

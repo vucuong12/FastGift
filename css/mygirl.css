@@ -191,3 +191,10 @@ button {
 #input3_img {
   margin-top: 92px;
 }
+
+#dropdown-icon {
+  width: auto;
+  height: 31px;
+  margin-top: 11px;
+  margin-left: 11px;
+}
