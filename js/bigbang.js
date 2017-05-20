@@ -417,10 +417,10 @@ $(document).ready(function()
 
 
 	function autoUpdate(){
-		if (/*mode != "editing"*/true) return;
+		if (mode != "editing") return;
 		setInterval(function(){
-			uploadGiftToFibrebase(false);
-		}, 10000)
+			uploadGiftToFibrebase(false, false);
+		}, 1000)
 	}
 
 	/*INIT*/
@@ -679,7 +679,7 @@ $(document).ready(function()
 	}
 
 
-	function uploadGiftToFibrebase(redirect = true){
+	function uploadGiftToFibrebase(redirect = true, blink = true){
 		updateEachInput("input1", "text");
 		updateEachInput("input2", "text");
 		updateEachInput("input5", "textarea");
@@ -688,7 +688,7 @@ $(document).ready(function()
 		updateEachInput("input8", "text");
 		updateEachInput("input9", "video");
 		isCompleted = checkPercentCompleted();
-		sendToFirebase(redirect);
+		sendToFirebase(redirect, blink);
 	}
 
 	function updateEachInput(inputKey, inputType){
@@ -721,7 +721,7 @@ $(document).ready(function()
 		// return database.ref().update(updates);
 	}
 
-	function sendToFirebase(redirect = true) {
+	function sendToFirebase(redirect = true, blink) {
 		var updates = {};
 		if (isCompleted){
 			localGift.status = "Completed"
@@ -729,11 +729,16 @@ $(document).ready(function()
 			localGift.status = "Incompleted"
 		}
 		localGift.priority = -Date.now();
-		$("#save-to-cloud-btn").css({"color":"#5bc0de"})
+		if (blink){
+			$("#save-to-cloud-btn").css({"color":"#5bc0de"})	
+		}
+		
 		updates["/gifts/" + giftID] = localGift;
 		return database.ref().update(updates, function(err){
-
-			$("#save-to-cloud-btn").css({"color":"#000"})
+			if (blink){
+				$("#save-to-cloud-btn").css({"color":"#000"})	
+			}
+			
 			if (redirect){
 				window.location.href = "../Preview/Bigbang.html?mode=preview&giftid=" + giftID;		
 			}

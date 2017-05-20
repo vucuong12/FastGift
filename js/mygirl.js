@@ -147,6 +147,13 @@ $(document).ready(function()
 		// return e.which != 13; 
 	});
 
+	function autoUpdate(){
+		if (mode != "editing") return;
+		setInterval(function(){
+			uploadGiftToFibrebase(false, false);
+		}, 1000)
+	}
+
 	function init() {
 
 		/*0. Get mode*/
@@ -179,6 +186,8 @@ $(document).ready(function()
 
 			});
 		});
+
+		autoUpdate();
 		
 
 	}
@@ -369,17 +378,17 @@ $(document).ready(function()
 		return (percent === 100);
 	}
 
-	function uploadGiftToFibrebase(redirect = true){
+	function uploadGiftToFibrebase(redirect = true, blink = true){
 		updateEachInput("input1", "text");
 		updateEachInput("input2", "text");
 		updateEachInput("input3", "image");
 		updateEachInput("input4", "text");
 
 		isCompleted = checkPercentCompleted();
-		sendToFirebase(redirect);
+		sendToFirebase(redirect, blink);
 	}
 
-	function sendToFirebase(redirect) {
+	function sendToFirebase(redirect, blink) {
 		var updates = {};
 		if (isCompleted){
 			localGift.status = "Completed"
@@ -388,11 +397,17 @@ $(document).ready(function()
 		}
 		localGift.priority = -Date.now();
 		updates["/gifts/" + giftID] = localGift;
-		$("#save-to-cloud-btn").css({"color":"#5bc0de"})
+		if (blink){
+			$("#save-to-cloud-btn").css({"color":"#5bc0de"})	
+		}
+		
 		console.log("Send");
 		return database.ref().update(updates, function(err){
 			console.log("Done");
-			$("#save-to-cloud-btn").css({"color":"#000"})
+			if (blink){
+				$("#save-to-cloud-btn").css({"color":"#000"})	
+			}
+			
 			if (redirect){
 				window.location.href = "../Preview/MyGirl.html?mode=preview&giftid=" + giftID;		
 			}
