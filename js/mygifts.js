@@ -28,9 +28,12 @@ $( document ).ready(function() {
       gift.attr('data-wholegift', JSON.stringify(childSnapshot));
 
       // fixing the image
+      
+
       if(giftType == "Bigbang")
       {
         //alert(childSnapshot.val().inputs['input6'])
+        gift.find('.gift-image img').attr('src',"images/homepage/birthday1.png");
         if (checkImgURL(childSnapshot.inputs['input6'])){
           gift.find('.gift-image img').attr('src',childSnapshot.inputs['input6']);
         }
@@ -38,6 +41,7 @@ $( document ).ready(function() {
       if(giftType == "MyGirl")
       {
         //alert(childSnapshot.val().inputs['input3'])
+        gift.find('.gift-image img').attr('src',"images/homepage/birthday4.gif");
         if(checkImgURL(childSnapshot.inputs['input3'])){
           gift.find('.gift-image img').attr('src',childSnapshot.inputs['input3']);
         }
