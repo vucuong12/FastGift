@@ -17,7 +17,7 @@ $( document ).ready(function() {
         gift.find('.gift-name').html(childSnapshot.val().giftTitle);
         var status = childSnapshot.val()["status"];
         // gift.find('.gift-status').html(status);
-        gift.find('.gift-details').css('background-color', status == "Completed" ? "#5fcff1" : "#cbd1d8");
+        
         gift.find('.gift-time').html('last modified:  ' + moment(timeStamp).format('LLL'));
         gift.attr('data-gifttype', giftType);
         gift.attr('data-wholegift', JSON.stringify(childSnapshot.val()));
@@ -31,21 +31,41 @@ $( document ).ready(function() {
         {
           gift.find('.gift-image img').attr('src',childSnapshot.val().inputs['input3']);
         }
-        
+
+        var isCompleted = checkPercentCompleted(gift);
+        if (isCompleted){
+          gift.data("gift_status", "Completed")
+        } else {
+          gift.data("gift_status", "Incompleted")
+        }
         gift.appendTo('#gift-manager');
+        gift.find('.gift-details').css('background-color', isCompleted ? "#5fcff1" : "#cbd1d8");
     });
     giftTemplate.remove();
     $('#gift-manager .one-gift').hide();
     $('#gift-manager .one-gift').slice((1-1)*5, 1*5).show();
     $(".pagination").appendTo('#gift-manager');
-    $( "#gift-manager .one-gift" ).each(function( index ) {
-      checkPercentCompleted(this);
-    });
+    // $( "#gift-manager .one-gift" ).each(function( index ) {
+    //   var isCompleted = checkPercentCompleted(this);
+    //   if (isCompleted){
+    //     $(this).data("gift_status", "Completed")
+    //   } else {
+    //     $(this).data("gift_status", "Incompleted")
+    //   }
+    // });
   });
+  function checkImgURL(url) {
+      return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+  }
+
+  function checkVideoURL(url) {
+      return(url.match(/\.(mp4|webm|webm)$/) != null);
+  }
 
   function checkPercentCompleted(gift){
-    console.log(gift.dataset);
-    var localGift = JSON.parse(gift.dataset.wholegift);
+    gift = gift;
+    console.log(gift.data());
+    var localGift = gift.data("wholegift");
     var inputs = localGift.inputs;
     var completed = 0;
     var tolalInputs = 0;
@@ -57,25 +77,49 @@ $( document ).ready(function() {
     var inputKeys = Object.keys(inputs);
     
     for (var index = 0; index < inputKeys.length; index++){
+      console.log(localGift.templateName);
       if (inputs[inputKeys[index]] == undefined || inputs[inputKeys[index]] == ""){
       } else {
-        completed++;
+        if (localGift.templateName === "Bigbang"){
+          console.log("BIGBANG");
+          if (inputKeys[index] === "input6"){
+            if (checkImgURL(inputs[inputKeys[index]])){
+              completed++;
+            }
+          } else if (inputKeys[index] === "input9"){
+            if (checkVideoURL(inputs[inputKeys[index]])){
+              completed++;
+            }
+          } else {
+            completed++;
+          }
+        } else if (localGift.templateName === "MyGirl"){
+          if (inputKeys[index] === "input3"){
+            if (checkImgURL(inputs[inputKeys[index]])){
+              completed++;
+            }
+          } else {
+            completed++;  
+          }
+        }
       }
     }
     var percent = Math.round(100.0 * completed / tolalInputs);
 
-    $(gift).find(".progress-bar")
+    gift.find(".progress-bar")
     .attr("aria-valuenow",percent)
     .css({"width": percent + "%"})
     .text(percent + "%")
     if (percent === 100){
-      $(gift).find(".progress-bar").css({"background-color":"#4CAF50"}).html("Completed")
+      gift.find(".progress-bar").css({"background-color":"#4CAF50"}).html("Completed")
     }
+    return (percent === 100);
   }
 
   //filter feature
   $('[name="status-option"]').click(function()
   {
+    if ($('#filter-christmas-topic input').is(':checked')) return;
     var filterType = this.id.split("-")[1];
     gifts = document.getElementsByClassName("one-gift");
     for(var i=0; i<gifts.length; i++) //start at 1 because we excluding the template
@@ -118,7 +162,8 @@ $( document ).ready(function() {
         var _url = "Preview/" + selectedGift.dataset.gifttype + ".html?mode=receiving&giftid=" + selectedGift.id;
         $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + _url);
         
-        var giftStatus = selectedGift.getElementsByClassName("gift-status")[0].innerHTML;
+        var giftStatus = $(this).closest(".one-gift").data("gift_status");
+        console.log($(this).closest(".one-gift").data())
         if (giftStatus == "Completed") {
           $("#gift-copylink-modal").modal("show");
         } else {

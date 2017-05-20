@@ -326,6 +326,8 @@ $(document).ready(function()
 	    return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
 
+	
+
 	function updateEachInput(inputKey, inputType){
 		if ($("#"+inputKey).val() == ""){
 			isCompleted = false;
@@ -339,10 +341,10 @@ $(document).ready(function()
 				console.log("Input 9" + localGift.inputs[inputKey]);	
 			} 
 		} else if (inputType == "image"){
-			if ($("#img-input-modal input").val() != ""){
+			if (!$('#img-input-modal').hasClass('in')){
 				localGift.inputs[inputKey] = $("#img-input-modal input").val();
-				console.log("Input 3" + localGift.inputs[inputKey]);	
-			} 
+				
+			}  
 			
 		} else {
 			localGift.inputs[inputKey] = $("#"+inputKey).val();
@@ -360,10 +362,19 @@ $(document).ready(function()
 		var inputs = localGift.inputs;
 		var completed = 0;
 		for (var index = 1; index <= tolalInputs; index++){
+
 			if (inputs["input"+index] == undefined || inputs["input"+index] == ""){
 
 			} else {
-				completed++;
+				if (index === 3){
+					if (checkImgURL(inputs["input"+index])){
+						completed++;
+					}
+					continue;
+				} else {
+					completed++;	
+				}
+				
 			}
 		}
 		var percent = Math.round(100.0 * completed / tolalInputs);

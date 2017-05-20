@@ -47,7 +47,6 @@ $(document).ready(function()
 			alert("Invalid video URL")
 			return;
 		}
-		alert(video1_url);
 		$("#video-input-modal").modal("hide");
 		
 		$("#wrapper_input9").css({ 'background-color':"rgba(255, 0, 0, 0)" })
@@ -663,11 +662,20 @@ $(document).ready(function()
 		for (var index = 0; index < inputKeys.length; index++){
 			if (inputs[inputKeys[index]] == undefined || inputs[inputKeys[index]] == ""){
 			} else {
-				completed++;
+				if (inputKeys[index] === "input6"){
+					if (checkImgURL(inputs[inputKeys[index]])){
+						completed++;
+					}
+				} else if (inputKeys[index] === "input9"){
+					if (checkVideoURL(inputs[inputKeys[index]])){
+						completed++;
+					}
+				} else {
+					completed++;
+				}
 			}
 		}
 		var percent = Math.round(100.0 * completed / tolalInputs);
-		console.log("Completed " + completed);
 		$(".progress-bar")
 		.attr("aria-valuenow",percent)
 		.css({"width": percent + "%"})
@@ -699,26 +707,21 @@ $(document).ready(function()
 		/*Update localGift*/
 		
 		if (inputType === "video") {
-			if ($("#video-input-modal input").val() != ""){
+			if (!$('#video-input-modal').hasClass('in')){
+				console.log("hehe");
 				localGift.inputs[inputKey] = $("#video-input-modal input").val();
-				console.log("Input 9" + localGift.inputs[inputKey]);	
+				
 			} 
 		} else if (inputType == "image"){
-			if ($("#img-input-modal input").val() != ""){
+			if (!$('#img-input-modal').hasClass('in')){
 				localGift.inputs[inputKey] = $("#img-input-modal input").val();
-				console.log("Input 6" + localGift.inputs[inputKey]);	
+				
 			} 
 			
 		} else {
 			localGift.inputs[inputKey] = $("#"+inputKey).val();
 		}
 
-
-		//localGift["inputs"] = $("#"+inputKey).val();
-		console.log("Update inputKey " + inputKey);
-
-		// updates["/gifts/" + giftID] = localGift;
-		// return database.ref().update(updates);
 	}
 
 	function sendToFirebase(redirect = true, blink) {
