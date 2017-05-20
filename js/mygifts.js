@@ -3,44 +3,102 @@ $( document ).ready(function() {
   database.ref("gifts/").orderByChild('priority').once('value', function(snapshot)
   {
     var giftTemplate = $("#gift-template");
-    snapshot.forEach(function(childSnapshot)
-    {
-        //console.log(childSnapshot.val());
-        var gift=giftTemplate.clone();
-        gift.attr('id', childSnapshot.key);
-        // for each gift, now we have to edit its gift-name, gift-status, send-link and remove button.
-        var receiver = childSnapshot.val().inputs["input1"];
-        if(receiver == "") receiver = "somebody";
-        var timeStamp = -childSnapshot.val()['priority'];
-        var giftType = childSnapshot.val().templateName;
-        // gift.find('.gift-name').html('Gift to ' + receiver);
-        gift.find('.gift-name').html(childSnapshot.val().giftTitle);
-        var status = childSnapshot.val()["status"];
-        // gift.find('.gift-status').html(status);
+    console.log(snapshot.val());
+    var keys = Object.keys(snapshot.val());
+    for (var index = 0; index < keys.length; index++){
+      var key = keys[index];
+      var childSnapshot = snapshot.val()[key];
+      console.log("---------");
+      console.log(childSnapshot);
+      // alert(1);
+      var gift=giftTemplate.clone();
+      gift.attr('id', key);
+      // for each gift, now we have to edit its gift-name, gift-status, send-link and remove button.
+      var receiver = childSnapshot.inputs["input1"];
+      if(receiver == "") receiver = "somebody";
+      var timeStamp = -childSnapshot['priority'];
+      var giftType = childSnapshot.templateName;
+      // gift.find('.gift-name').html('Gift to ' + receiver);
+      gift.find('.gift-name').html(childSnapshot.giftTitle);
+      var status = childSnapshot["status"];
+      // gift.find('.gift-status').html(status);
+      
+      gift.find('.gift-time').html('last modified:  ' + moment(timeStamp).format('LLL'));
+      gift.attr('data-gifttype', giftType);
+      gift.attr('data-wholegift', JSON.stringify(childSnapshot));
+
+      // fixing the image
+      if(giftType == "Bigbang")
+      {
+        //alert(childSnapshot.val().inputs['input6'])
+        if (checkImgURL(childSnapshot.inputs['input6'])){
+          gift.find('.gift-image img').attr('src',childSnapshot.inputs['input6']);
+        }
+      }
+      if(giftType == "MyGirl")
+      {
+        //alert(childSnapshot.val().inputs['input3'])
+        if(checkImgURL(childSnapshot.inputs['input3'])){
+          gift.find('.gift-image img').attr('src',childSnapshot.inputs['input3']);
+        }
+      }
+
+      var isCompleted = checkPercentCompleted(gift);
+      if (isCompleted){
+        gift.data("gift_status", "Completed")
+      } else {
+        gift.data("gift_status", "Incompleted")
+      }
+      gift.appendTo('#gift-manager');
+      gift.find('.gift-details').css('background-color', isCompleted ? "#5fcff1" : "#cbd1d8");
+    }
+    // snapshot.val().forEach(function(childSnapshot)
+    // {   
+
+    //     console.log("---------");
+    //     console.log(childSnapshot);
+    //     // alert(1);
+    //     var gift=giftTemplate.clone();
+    //     gift.attr('id', childSnapshot.key);
+    //     // for each gift, now we have to edit its gift-name, gift-status, send-link and remove button.
+    //     var receiver = childSnapshot.val().inputs["input1"];
+    //     if(receiver == "") receiver = "somebody";
+    //     var timeStamp = -childSnapshot.val()['priority'];
+    //     var giftType = childSnapshot.val().templateName;
+    //     // gift.find('.gift-name').html('Gift to ' + receiver);
+    //     gift.find('.gift-name').html(childSnapshot.val().giftTitle);
+    //     var status = childSnapshot.val()["status"];
+    //     // gift.find('.gift-status').html(status);
         
-        gift.find('.gift-time').html('last modified:  ' + moment(timeStamp).format('LLL'));
-        gift.attr('data-gifttype', giftType);
-        gift.attr('data-wholegift', JSON.stringify(childSnapshot.val()));
+    //     gift.find('.gift-time').html('last modified:  ' + moment(timeStamp).format('LLL'));
+    //     gift.attr('data-gifttype', giftType);
+    //     gift.attr('data-wholegift', JSON.stringify(childSnapshot.val()));
 
-        // fixing the image
-        if(giftType == "Bigbang")
-        {
-          gift.find('.gift-image img').attr('src',childSnapshot.val().inputs['input6']);
-        }
-        if(giftType == "MyGirl")
-        {
-          gift.find('.gift-image img').attr('src',childSnapshot.val().inputs['input3']);
-        }
+    //     // fixing the image
+    //     if(giftType == "Bigbang")
+    //     {
+    //       //alert(childSnapshot.val().inputs['input6'])
+    //       if (checkImgURL(childSnapshot.val().inputs['input6'])){
+    //         gift.find('.gift-image img').attr('src',childSnapshot.val().inputs['input6']);
+    //       }
+    //     }
+    //     if(giftType == "MyGirl")
+    //     {
+    //       //alert(childSnapshot.val().inputs['input3'])
+    //       if(checkImgURL(childSnapshot.val().inputs['input3'])){
+    //         gift.find('.gift-image img').attr('src',childSnapshot.val().inputs['input3']);
+    //       }
+    //     }
 
-        var isCompleted = checkPercentCompleted(gift);
-        if (isCompleted){
-          gift.data("gift_status", "Completed")
-        } else {
-          gift.data("gift_status", "Incompleted")
-        }
-        gift.appendTo('#gift-manager');
-        gift.find('.gift-details').css('background-color', isCompleted ? "#5fcff1" : "#cbd1d8");
-    });
+    //     var isCompleted = checkPercentCompleted(gift);
+    //     if (isCompleted){
+    //       gift.data("gift_status", "Completed")
+    //     } else {
+    //       gift.data("gift_status", "Incompleted")
+    //     }
+    //     gift.appendTo('#gift-manager');
+    //     gift.find('.gift-details').css('background-color', isCompleted ? "#5fcff1" : "#cbd1d8");
+    // });
     giftTemplate.remove();
     $('#gift-manager .one-gift').hide();
     $('#gift-manager .one-gift').slice((1-1)*5, 1*5).show();
