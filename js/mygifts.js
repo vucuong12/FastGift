@@ -175,6 +175,7 @@ $( document ).ready(function() {
     if (percent === 100){
       gift.find(".progress-bar").css({"background-color":"#4CAF50"}).html("Completed")
     }
+
     return (percent === 100);
   }
 
