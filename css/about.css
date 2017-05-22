@@ -11,3 +11,13 @@ button, h1, h2, h3, input, tt, span, strong, p {
 	display: block;
 	margin: 0 auto;
 }
+
+
+#example button {
+	border-radius: 0;
+    margin-top: 39px;
+    width: 300px;
+    height: 100px;
+    font-size: 38px;
+    margin-bottom: 61px;
+}

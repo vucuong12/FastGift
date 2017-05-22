@@ -3,13 +3,10 @@ $( document ).ready(function() {
   database.ref("gifts/").orderByChild('priority').once('value', function(snapshot)
   {
     var giftTemplate = $("#gift-template");
-    console.log(snapshot.val());
     var keys = Object.keys(snapshot.val());
     for (var index = 0; index < keys.length; index++){
       var key = keys[index];
       var childSnapshot = snapshot.val()[key];
-      console.log("---------");
-      console.log(childSnapshot);
       // alert(1);
       var gift=giftTemplate.clone();
       gift.attr('id', key);
@@ -42,6 +39,8 @@ $( document ).ready(function() {
       {
         //alert(childSnapshot.val().inputs['input3'])
         gift.find('.gift-image img').attr('src',"images/homepage/birthday4.gif");
+        console.log("---");
+        console.log(childSnapshot);
         if(checkImgURL(childSnapshot.inputs['input3'])){
           gift.find('.gift-image img').attr('src',childSnapshot.inputs['input3']);
         }
@@ -117,16 +116,17 @@ $( document ).ready(function() {
     // });
   });
   function checkImgURL(url) {
+    if (url === undefined) return false;
       return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
   }
 
   function checkVideoURL(url) {
+    if (url === undefined) return false;
       return(url.match(/\.(mp4|webm|webm)$/) != null);
   }
 
   function checkPercentCompleted(gift){
     gift = gift;
-    console.log(gift.data());
     var localGift = gift.data("wholegift");
     var inputs = localGift.inputs;
     var completed = 0;
@@ -139,11 +139,9 @@ $( document ).ready(function() {
     var inputKeys = Object.keys(inputs);
     
     for (var index = 0; index < inputKeys.length; index++){
-      console.log(localGift.templateName);
       if (inputs[inputKeys[index]] == undefined || inputs[inputKeys[index]] == ""){
       } else {
         if (localGift.templateName === "Bigbang"){
-          console.log("BIGBANG");
           if (inputKeys[index] === "input6"){
             if (checkImgURL(inputs[inputKeys[index]])){
               completed++;
@@ -188,7 +186,6 @@ $( document ).ready(function() {
     for(var i=0; i<gifts.length; i++) //start at 1 because we excluding the template
     {
       var giftStatus = gifts[i].getElementsByClassName("progress-bar")[0].innerHTML;
-      console.log(giftStatus);
       if (giftStatus !== "Completed") giftStatus = "Incompleted";
       if(giftStatus == filterType || filterType == "All") gifts[i].style.display = "block";
       else gifts[i].style.display = "none";
@@ -220,13 +217,11 @@ $( document ).ready(function() {
   var selectedGift;
 	$(document).on( "click",".gift-copylink", function( event ) {
         selectedGift = this.parentNode.parentNode.parentNode.parentNode; //really?
-        console.log(window.location.href);
         $("#gift-copylink-modal #copy-link-gift-name").html(selectedGift.getElementsByClassName("gift-name")[0].innerHTML);
         var _url = "Preview/" + selectedGift.dataset.gifttype + ".html?mode=receiving&giftid=" + selectedGift.id;
         $("#gift-copylink-modal input").val(window.location.href.split("mygifts.html")[0] + _url);
         
         var giftStatus = $(this).closest(".one-gift").data("gift_status");
-        console.log($(this).closest(".one-gift").data())
         if (giftStatus == "Completed") {
           $("#gift-copylink-modal").modal("show");
         } else {
@@ -273,7 +268,6 @@ $( document ).ready(function() {
   $(".page-selector").click(function(e){
     e.preventDefault();
     var page = $(this).find('a').html();
-    console.log($('.gift-manager.one-gift'));
     $('#gift-manager .one-gift').hide();
     if(page != '...') $('#gift-manager .one-gift').slice((page-1)*5, page*5).show();
     else $('#gift-manager .one-gift').slice(20).show();
