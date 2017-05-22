@@ -180,7 +180,7 @@ button {
   background-color: #f8ff9c;
   text-align: center;
   width: 400px;
-  height: 300px;
+  min-height: 300px;
   border: dashed;
 }
 
