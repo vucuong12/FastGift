@@ -45,15 +45,18 @@
 	
 2. Main html implementation
     - **Group 1**: this group is for editing, previewing, and receiving gifts. For each gift, there is a html file for editing (in Editing folder), and an html file for previewing and receiving (in Preview folder) 
-```
-├── Editing
-│   ├── Bigbang.html
-│   ├── MyGirl.html
-├── Preview
-│   ├── Bigbang.html
-│   ├── MyGirl.html
-```
-	- **Group 2**
+    
+    ```
+    ├── Editing
+    │   ├── Bigbang.html
+    │   ├── MyGirl.html
+    ├── Preview
+    │   ├── Bigbang.html
+    │   ├── MyGirl.html
+
+    ```
+	
+    - **Group 2**
         - **index.html**: home page
         - **about.html**: about page
         - **mygifts.html**: mygifts page (managing gifts)
