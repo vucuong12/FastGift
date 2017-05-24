@@ -55,6 +55,10 @@ $( document ).ready(function() {
       gift.appendTo('#gift-manager');
       gift.find('.gift-details').css('background-color', isCompleted ? "#5fcff1" : "#cbd1d8");
     }
+
+    function sortArray(){
+      
+    }
     // snapshot.val().forEach(function(childSnapshot)
     // {   
 
