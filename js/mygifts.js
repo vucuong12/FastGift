@@ -1,6 +1,6 @@
 $( document ).ready(function() {
   
-  database.ref("gifts/").orderByChild('priority').once('value', function(snapshot)
+  database.ref("gifts/").once('value', function(snapshot)
   {
     var giftTemplate = $("#gift-template");
     var keys = Object.keys(snapshot.val());
@@ -14,6 +14,8 @@ $( document ).ready(function() {
       var receiver = childSnapshot.inputs["input1"];
       if(receiver == "") receiver = "somebody";
       var timeStamp = -childSnapshot['priority'];
+      gift.attr('data-sort', timeStamp);
+      console.log(timeStamp);
       var giftType = childSnapshot.templateName;
       // gift.find('.gift-name').html('Gift to ' + receiver);
       gift.find('.gift-name').html(childSnapshot.giftTitle);
@@ -39,8 +41,8 @@ $( document ).ready(function() {
       {
         //alert(childSnapshot.val().inputs['input3'])
         gift.find('.gift-image img').attr('src',"images/homepage/birthday4.gif");
-        console.log("---");
-        console.log(childSnapshot);
+        //console.log("---");
+        //console.log(childSnapshot);
         if(checkImgURL(childSnapshot.inputs['input3'])){
           gift.find('.gift-image img').attr('src',childSnapshot.inputs['input3']);
         }
@@ -56,68 +58,25 @@ $( document ).ready(function() {
       gift.find('.gift-details').css('background-color', isCompleted ? "#5fcff1" : "#cbd1d8");
     }
 
-    function sortArray(){
-      
-    }
-    // snapshot.val().forEach(function(childSnapshot)
-    // {   
-
-    //     console.log("---------");
-    //     console.log(childSnapshot);
-    //     // alert(1);
-    //     var gift=giftTemplate.clone();
-    //     gift.attr('id', childSnapshot.key);
-    //     // for each gift, now we have to edit its gift-name, gift-status, send-link and remove button.
-    //     var receiver = childSnapshot.val().inputs["input1"];
-    //     if(receiver == "") receiver = "somebody";
-    //     var timeStamp = -childSnapshot.val()['priority'];
-    //     var giftType = childSnapshot.val().templateName;
-    //     // gift.find('.gift-name').html('Gift to ' + receiver);
-    //     gift.find('.gift-name').html(childSnapshot.val().giftTitle);
-    //     var status = childSnapshot.val()["status"];
-    //     // gift.find('.gift-status').html(status);
-        
-    //     gift.find('.gift-time').html('last modified:  ' + moment(timeStamp).format('LLL'));
-    //     gift.attr('data-gifttype', giftType);
-    //     gift.attr('data-wholegift', JSON.stringify(childSnapshot.val()));
-
-    //     // fixing the image
-    //     if(giftType == "Bigbang")
-    //     {
-    //       //alert(childSnapshot.val().inputs['input6'])
-    //       if (checkImgURL(childSnapshot.val().inputs['input6'])){
-    //         gift.find('.gift-image img').attr('src',childSnapshot.val().inputs['input6']);
-    //       }
-    //     }
-    //     if(giftType == "MyGirl")
-    //     {
-    //       //alert(childSnapshot.val().inputs['input3'])
-    //       if(checkImgURL(childSnapshot.val().inputs['input3'])){
-    //         gift.find('.gift-image img').attr('src',childSnapshot.val().inputs['input3']);
-    //       }
-    //     }
-
-    //     var isCompleted = checkPercentCompleted(gift);
-    //     if (isCompleted){
-    //       gift.data("gift_status", "Completed")
-    //     } else {
-    //       gift.data("gift_status", "Incompleted")
-    //     }
-    //     gift.appendTo('#gift-manager');
-    //     gift.find('.gift-details').css('background-color', isCompleted ? "#5fcff1" : "#cbd1d8");
-    // });
     giftTemplate.remove();
+
+    $("#gift-manager .one-gift").sort(function(a,b)
+    {
+      var A = parseInt($(a).attr('data-sort'));
+      var B = parseInt($(b).attr('data-sort'));
+      if(A > B) return -1;
+      return A<B?1:0;
+    }).each(function()
+    {
+      var u = $(this);
+      u.remove();
+      $(u).appendTo('#gift-manager');
+      console.log(u.attr('data-sort'));
+    });
+    
     $('#gift-manager .one-gift').hide();
     $('#gift-manager .one-gift').slice((1-1)*5, 1*5).show();
     $(".pagination").appendTo('#gift-manager');
-    // $( "#gift-manager .one-gift" ).each(function( index ) {
-    //   var isCompleted = checkPercentCompleted(this);
-    //   if (isCompleted){
-    //     $(this).data("gift_status", "Completed")
-    //   } else {
-    //     $(this).data("gift_status", "Incompleted")
-    //   }
-    // });
   });
   function checkImgURL(url) {
     if (url === undefined) return false;
