@@ -54,8 +54,12 @@ $( document ).ready(function() {
       } else {
         gift.data("gift_status", "Incompleted")
       }
-      gift.appendTo('#gift-manager');
-      gift.find('.gift-details').css('background-color', isCompleted ? "#5fcff1" : "#cbd1d8");
+      if (gift.attr('id') == '-KlDwgayM2KPjVEVUYxk') {
+        continue;
+      } else {
+        gift.appendTo('#gift-manager');
+        gift.find('.gift-details').css('background-color', isCompleted ? "#5fcff1" : "#cbd1d8");
+      }
     }
 
     giftTemplate.remove();
