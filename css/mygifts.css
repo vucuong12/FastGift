@@ -20,3 +20,7 @@ button, h2, h3, input, tt, span {
     white-space: nowrap;
   overflow: hidden;
 }
+
+.col-xs-2.gift-remove.gift-action i {
+    color: #ce4f4f;
+}
