@@ -113,7 +113,7 @@ $( document ).ready(function() {
               completed++;
             }
           } else if (inputKeys[index] === "input9"){
-            if (checkVideoURL(inputs[inputKeys[index]])){
+            if (inputs[inputKeys[index]] != "" && inputs[inputKeys[index]] != undefined){
               completed++;
             }
           } else {

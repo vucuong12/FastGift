@@ -196,12 +196,13 @@
           <div id="wrapper_input9">
             <!-- <h1>+Video</h1> -->
             <img id="input9_img" src="../images/add_video.png">
-            <video style="display: none" width="100%" controls>
+            <!-- <video style="display: none" width="100%" controls>
               <source src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" type="video/mp4" >
-              <!-- src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"  -->
+              src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" 
               <source src="http://clips.vorwaerts-gmbh.de/VfE.ogv" type="video/ogg">
               Your browser does not support HTML5 video.
-            </video>
+            </video> -->
+            <iframe id="input9_video" style="display: none" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
           </div>
         </div>
 
@@ -261,7 +262,7 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h2 class="modal-title" style="text-align: center;">Input Video url</h2>
               <p style="font-size: 20px; text-align: center">Please input your video's url here</p>
-              <p style="font-size: 20px; text-align: center">(example: http://clips.vorwaerts-gmbh.de/VfE_html5.mp4)</p>
+              <p style="font-size: 20px; text-align: center">(example: https://www.youtube.com/watch?v=MmKlaGpmYig)</p>
               <center>
                 <input id="#input9" type="text" style="width: 75%" name="input6-img-url" placeholder="Your video's url"><br>
               </center>

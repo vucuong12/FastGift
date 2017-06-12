@@ -42,17 +42,18 @@ $(document).ready(function()
 	$("#video-input-modal .done").click(function(){
 		
 		video1_url = $("#video-input-modal input").val();
-		
-		if (!checkVideoURL(video1_url)){
-			alert("Invalid video URL")
-			return;
+		video1_url = getCorrectEmbeddedURL(video1_url);
+		if (video1_url === "Error"){
+			alert("Invalid video URL");
+			return 
 		}
+		
 		$("#video-input-modal").modal("hide");
 		
 		$("#wrapper_input9").css({ 'background-color':"rgba(255, 0, 0, 0)" })
 		.css({"border":"none"})
-		$("#wrapper_input9 source").attr('src', video1_url);
-		$("#wrapper_input9 video").show();
+		$("#wrapper_input9 #input9_video").attr('src', video1_url);
+		$("#wrapper_input9 #input9_video").show();
 		$("#wrapper_input9 img").hide();
 	})
 
@@ -389,6 +390,39 @@ $(document).ready(function()
 	    return(url.match(/\.(mp4|webm|webm)$/) != null);
 	}
 
+	function getYoutubeId(url) {
+	    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+	    var match = url.match(regExp);
+
+	    if (match && match[2].length == 11) {
+	        return "https:////www.youtube.com/embed/" + match[2];
+	    } else {
+	        return 'error';
+	    }
+	}
+
+	function getUrlFromIframe(iframeUrl){
+		var $iframe = $(iframeUrl);
+		return $iframe.attr("src");
+	}
+
+	function getCorrectEmbeddedURL(url){
+		if (url.indexOf("iframe") >= 0){
+			url = getUrlFromIframe(url);
+		} 
+		else if (url.indexOf("youtu") >= 0){
+			url = getYoutubeId(url);	
+		}
+		else if (checkVideoURL(url)){
+			url = url;
+		} else {
+			url = "Error";
+		}
+		return url
+	}
+
+	
+
 	$("#gift-name-edit").focusout(function(e){
 		if ($(this).html() == ""){
         	$(this).html("Untitled gift")
@@ -495,8 +529,8 @@ $(document).ready(function()
 				if (inputType === "video") {
 					$("#wrapper_input9").css({ 'background-color':"rgba(255, 0, 0, 0)" })
 					.css({"border":"none"})
-					$("#wrapper_input9 source").attr('src', value);
-					$("#wrapper_input9 video").show();
+					$("#wrapper_input9 #input9_video").attr('src', value);
+					$("#wrapper_input9 #input9_video").show();
 					$("#wrapper_input9 img").hide();
 					return;
 				} else if (inputType === "image"){
@@ -536,8 +570,8 @@ $(document).ready(function()
 				$("#video-input-modal input").val(value);
 				$("#wrapper_input9").css({ 'background-color':"rgba(255, 0, 0, 0)" })
 				.css({"border":"none"})
-				$("#wrapper_input9 source").attr('src', value);
-				$("#wrapper_input9 video").show();
+				$("#wrapper_input9 #input9_video").attr('src', value);
+				$("#wrapper_input9 #input9_video").show();
 				$("#wrapper_input9 img").hide();
 			}
 		}else if (inputType === "image"){
@@ -667,7 +701,7 @@ $(document).ready(function()
 						completed++;
 					}
 				} else if (inputKeys[index] === "input9"){
-					if (checkVideoURL(inputs[inputKeys[index]])){
+					if (inputs[inputKeys[index]] != "" && inputs[inputKeys[index]] != undefined){
 						completed++;
 					}
 				} else {
@@ -708,8 +742,9 @@ $(document).ready(function()
 		
 		if (inputType === "video") {
 			if (!$('#video-input-modal').hasClass('in')){
-				console.log("hehe");
-				localGift.inputs[inputKey] = $("#video-input-modal input").val();
+				var embedUrl = getCorrectEmbeddedURL($("#video-input-modal input").val());
+				if (embedUrl == "Error") embedUrl = "";
+				localGift.inputs[inputKey] = embedUrl;
 				
 			} 
 		} else if (inputType == "image"){
