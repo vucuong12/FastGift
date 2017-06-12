@@ -455,7 +455,7 @@ $(document).ready(function()
 	  if (mode != "editing"){
 	  	document.getElementById('outside').className = '';
 	  } else {
-	  	showSlide(1)
+	  	//showSlide(1);
 	  }
 	  
 	}
