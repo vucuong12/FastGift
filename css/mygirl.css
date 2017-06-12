@@ -237,3 +237,11 @@ button {
 #preview-btn:hover {
   cursor: pointer;
 }
+
+#gift-name-edit-icon:hover {
+  cursor: pointer;
+}
+
+.notifyjs-bootstrap-success {
+  font-size: 10px;
+}

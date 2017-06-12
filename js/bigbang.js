@@ -432,6 +432,10 @@ $(document).ready(function()
         sendToFirebase(false);
 	})
 
+	$("#gift-name-edit-icon").click(function(e){
+		$("#gift-name-edit").focus();
+	})
+
 	$("#gift-name-edit").keypress(function(e){ 
 		if (e.which === 13) {
 	        e.preventDefault();
@@ -496,6 +500,19 @@ $(document).ready(function()
 		
 		
 	}
+
+
+	$("#save-to-cloud-btn").click(function(e){
+	    $("#save-to-cloud-btn").notify("Saved", { 
+	      position:"right",
+	      style:'bootstrap',
+	      className: "success",
+	      autoHideDelay: 1000,
+	      showAnimation: 'slideDown',
+	      hideAnimation: 'slideUp'
+	    });
+
+	  });
 
 	function displayEachInput(inputKey, inputType, defaultValue = "Your message"){
 		var value = localGift.inputs[inputKey];
@@ -717,6 +734,7 @@ $(document).ready(function()
 		if (percent === 100){
 			$(".progress-bar").css({"background-color":"#4CAF50"}).html("Completed")
 		}
+
 		return (percent === 100);
 	}
 

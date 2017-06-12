@@ -131,6 +131,10 @@ $(document).ready(function()
         sendToFirebase(false);
 	})
 
+	$("#gift-name-edit-icon").click(function(e){
+		$("#gift-name-edit").focus();
+	})
+
 	$("#gift-name-edit").keypress(function(e){ 
 		if (e.which === 13) {
 	        e.preventDefault();
@@ -146,6 +150,18 @@ $(document).ready(function()
 		
 		// return e.which != 13; 
 	});
+
+	$("#save-to-cloud-btn").click(function(e){
+	    $("#save-to-cloud-btn").notify("Saved", { 
+	      position:"right",
+	      style:'bootstrap',
+	      className: "success",
+	      autoHideDelay: 1000,
+	      showAnimation: 'slideDown',
+	      hideAnimation: 'slideUp'
+	    });
+
+	  });
 
 	function autoUpdate(){
 		if (mode != "editing") return;
